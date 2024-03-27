@@ -4,13 +4,15 @@ import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ContainerType;
 import com.voxelutopia.ultramarine.data.ModFoods;
 import com.voxelutopia.ultramarine.world.block.*;
-import com.voxelutopia.ultramarine.world.block.BaseAxialBlock;
+import com.voxelutopia.ultramarine.world.block.HangingLantern;
 import net.minecraft.core.Direction;
 import net.minecraft.world.food.Foods;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -39,7 +41,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BROWNISH_RED_STONE_BRICK_SLAB = BLOCKS.register("brownish_red_stone_brick_slab", () -> new BaseSlab((BaseBlock) BROWNISH_RED_STONE_BRICKS.get()));
     public static final RegistryObject<Block> BROWNISH_RED_STONE_BRICK_STAIRS = BLOCKS.register("brownish_red_stone_brick_stairs", () -> new BaseStairs((BaseBlock) BROWNISH_RED_STONE_BRICKS.get()));
     public static final RegistryObject<Block> BROWNISH_RED_STONE_BRICK_WALL = BLOCKS.register("brownish_red_stone_brick_wall", () -> new BaseWall((BaseBlock) BROWNISH_RED_STONE_BRICKS.get()));
-    public static final RegistryObject<Block> WHITE_AMD_PINK_MIXED_BRICKS = BLOCKS.register("white_and_pink_mixed_bricks", () -> new BaseBlock(BaseBlockProperty.STONE));
+    public static final RegistryObject<Block> WHITE_AND_PINK_MIXED_BRICKS = BLOCKS.register("white_and_pink_mixed_bricks", () -> new BaseBlock(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> GREEN_WEATHERED_BRICKS = BLOCKS.register("green_weathered_bricks", () -> new BaseBlock(BaseBlockProperty.STONE));
 
     // STONES
@@ -97,40 +99,41 @@ public class BlockRegistry {
 
     // ROOF TILES
 
-    public static final RegistryObject<Block> GRAY_ROOF_TILES = BLOCKS.register("gray_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> GRAY_ROOF_TILE_STAIRS = BLOCKS.register("gray_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> GRAY_ROOF_TILE_EDGE = BLOCKS.register("gray_roof_tile_edge", RoofTiles::new);
-    public static final RegistryObject<Block> YELLOW_ROOF_TILES = BLOCKS.register("yellow_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> YELLOW_ROOF_TILE_STAIRS = BLOCKS.register("yellow_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> YELLOW_ROOF_TILE_EDGE = BLOCKS.register("yellow_roof_tile_edge", RoofTiles::new);
-    public static final RegistryObject<Block> GREEN_ROOF_TILES = BLOCKS.register("green_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> GREEN_ROOF_TILE_STAIRS = BLOCKS.register("green_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> GREEN_ROOF_TILE_EDGE = BLOCKS.register("green_roof_tile_edge", RoofTiles::new);
-    public static final RegistryObject<Block> BLUE_ROOF_TILES = BLOCKS.register("blue_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> BLUE_ROOF_TILE_STAIRS = BLOCKS.register("blue_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> BLUE_ROOF_TILE_EDGE = BLOCKS.register("blue_roof_tile_edge", RoofTiles::new);
-    public static final RegistryObject<Block> CYAN_ROOF_TILES = BLOCKS.register("cyan_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> CYAN_ROOF_TILE_STAIRS = BLOCKS.register("cyan_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> CYAN_ROOF_TILE_EDGE = BLOCKS.register("cyan_roof_tile_edge", RoofTiles::new);
-    public static final RegistryObject<Block> BLACK_ROOF_TILES = BLOCKS.register("black_roof_tiles", RoofTiles::new);
-    public static final RegistryObject<Block> BLACK_ROOF_TILE_STAIRS = BLOCKS.register("black_roof_tile_stairs", RoofTiles::new);
-    public static final RegistryObject<Block> BLACK_ROOF_TILE_EDGE = BLOCKS.register("black_roof_tile_edge", RoofTiles::new);
+    public static final RegistryObject<Block> GRAY_ROOF_TILES = BLOCKS.register("gray_roof_tiles", () -> new RoofTiles(DyeColor.GRAY, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> GRAY_ROOF_TILE_STAIRS = BLOCKS.register("gray_roof_tile_stairs", () -> new RoofTiles(DyeColor.GRAY, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> GRAY_ROOF_TILE_EDGE = BLOCKS.register("gray_roof_tile_edge", () -> new RoofTiles(DyeColor.GRAY, RoofTiles.RoofTileType.EDGE));
+    public static final RegistryObject<Block> YELLOW_ROOF_TILES = BLOCKS.register("yellow_roof_tiles", () -> new RoofTiles(DyeColor.YELLOW, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> YELLOW_ROOF_TILE_STAIRS = BLOCKS.register("yellow_roof_tile_stairs", () -> new RoofTiles(DyeColor.YELLOW, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> YELLOW_ROOF_TILE_EDGE = BLOCKS.register("yellow_roof_tile_edge", () -> new RoofTiles(DyeColor.YELLOW, RoofTiles.RoofTileType.EDGE));
+    public static final RegistryObject<Block> GREEN_ROOF_TILES = BLOCKS.register("green_roof_tiles", () -> new RoofTiles(DyeColor.GREEN, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> GREEN_ROOF_TILE_STAIRS = BLOCKS.register("green_roof_tile_stairs", () -> new RoofTiles(DyeColor.GREEN, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> GREEN_ROOF_TILE_EDGE = BLOCKS.register("green_roof_tile_edge", () -> new RoofTiles(DyeColor.GREEN, RoofTiles.RoofTileType.EDGE));
+    public static final RegistryObject<Block> BLUE_ROOF_TILES = BLOCKS.register("blue_roof_tiles", () -> new RoofTiles(DyeColor.BLUE, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> BLUE_ROOF_TILE_STAIRS = BLOCKS.register("blue_roof_tile_stairs", () -> new RoofTiles(DyeColor.BLUE, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> BLUE_ROOF_TILE_EDGE = BLOCKS.register("blue_roof_tile_edge", () -> new RoofTiles(DyeColor.BLUE, RoofTiles.RoofTileType.EDGE));
+    public static final RegistryObject<Block> CYAN_ROOF_TILES = BLOCKS.register("cyan_roof_tiles", () -> new RoofTiles(DyeColor.CYAN, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> CYAN_ROOF_TILE_STAIRS = BLOCKS.register("cyan_roof_tile_stairs", () -> new RoofTiles(DyeColor.CYAN, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> CYAN_ROOF_TILE_EDGE = BLOCKS.register("cyan_roof_tile_edge", () -> new RoofTiles(DyeColor.CYAN, RoofTiles.RoofTileType.EDGE));
+    public static final RegistryObject<Block> BLACK_ROOF_TILES = BLOCKS.register("black_roof_tiles", () -> new RoofTiles(DyeColor.BLACK, RoofTiles.RoofTileType.NORMAL));
+    public static final RegistryObject<Block> BLACK_ROOF_TILE_STAIRS = BLOCKS.register("black_roof_tile_stairs", () -> new RoofTiles(DyeColor.BLACK, RoofTiles.RoofTileType.STAIRS));
+    public static final RegistryObject<Block> BLACK_ROOF_TILE_EDGE = BLOCKS.register("black_roof_tile_edge", () -> new RoofTiles(DyeColor.BLACK, RoofTiles.RoofTileType.EDGE));
 
     // ROOF RIDGE
 
-    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_UPPER = BLOCKS.register("black_roof_ridge_upper", () -> new BaseBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_LOWER = BLOCKS.register("black_roof_ridge_lower", () -> new BaseBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_CONNECTION = BLOCKS.register("black_roof_ridge_connection", () -> new BaseAxialBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_CONNECTION = BLOCKS.register("black_main_roof_ridge_connection", () -> new BaseHorizontalDirectionalBlock(BaseBlockProperty.STONE));
+    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_UPPER = BLOCKS.register("black_roof_ridge_upper", () -> new RoofRidge(DyeColor.BLACK, RoofRidge.RoofRidgeType.UPPER));
+    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_LOWER = BLOCKS.register("black_roof_ridge_lower", () -> new RoofRidge(DyeColor.BLACK, RoofRidge.RoofRidgeType.LOWER));
+    public static final RegistryObject<Block> BLACK_ROOF_RIDGE_CONNECTION = BLOCKS.register("black_roof_ridge_connection", () -> new RoofRidgeConnection(DyeColor.BLACK, SnowRoofRidge.RoofRidgeType.CONNECTION));
+    public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_CONNECTION = BLOCKS.register("black_main_roof_ridge_connection", () -> new RoofMainRidgeConnection(DyeColor.BLACK, SnowRoofRidge.RoofRidgeType.MAIN_CONNECTION));
     public static final RegistryObject<Block> BLACK_ROOF_RIDGE_UPPER_SLAB = BLOCKS.register("black_roof_ridge_upper_slab", () -> new BaseSlab(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_SLAB = BLOCKS.register("black_main_roof_ridge_slab", () -> new BaseHorizontalDirectionalSlab(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_PANEL = BLOCKS.register("black_main_roof_ridge_panel", () -> new RoofRidgePanel(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_PLATE = BLOCKS.register("black_main_roof_ridge_plate", () -> new RoofRidgePlate(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> BLACK_MAIN_ROOF_RIDGE_STAIRS = BLOCKS.register("black_main_roof_ridge_stairs", () -> new StraightStairBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_UPPER = BLOCKS.register("yellow_roof_ridge_upper", () -> new BaseBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_LOWER = BLOCKS.register("yellow_roof_ridge_lower", () -> new BaseBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_CONNECTION = BLOCKS.register("yellow_roof_ridge_connection", () -> new BaseAxialBlock(BaseBlockProperty.STONE));
-    public static final RegistryObject<Block> YELLOW_MAIN_ROOF_RIDGE_CONNECTION = BLOCKS.register("yellow_main_roof_ridge_connection", () -> new BaseHorizontalDirectionalBlock(BaseBlockProperty.STONE));
+
+    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_UPPER = BLOCKS.register("yellow_roof_ridge_upper", () -> new RoofRidge(DyeColor.YELLOW, RoofRidge.RoofRidgeType.UPPER));
+    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_LOWER = BLOCKS.register("yellow_roof_ridge_lower", () -> new RoofRidge(DyeColor.YELLOW, RoofRidge.RoofRidgeType.LOWER));
+    public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_CONNECTION = BLOCKS.register("yellow_roof_ridge_connection", () -> new RoofRidgeConnection(DyeColor.YELLOW, SnowRoofRidge.RoofRidgeType.CONNECTION));
+    public static final RegistryObject<Block> YELLOW_MAIN_ROOF_RIDGE_CONNECTION = BLOCKS.register("yellow_main_roof_ridge_connection", () -> new RoofMainRidgeConnection(DyeColor.YELLOW, SnowRoofRidge.RoofRidgeType.MAIN_CONNECTION));
     public static final RegistryObject<Block> YELLOW_ROOF_RIDGE_UPPER_SLAB = BLOCKS.register("yellow_roof_ridge_upper_slab", () -> new BaseSlab(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> YELLOW_MAIN_ROOF_RIDGE_SLAB = BLOCKS.register("yellow_main_roof_ridge_slab", () -> new BaseHorizontalDirectionalSlab(BaseBlockProperty.STONE));
     public static final RegistryObject<Block> YELLOW_MAIN_ROOF_RIDGE_PANEL = BLOCKS.register("yellow_main_roof_ridge_panel", () -> new RoofRidgePanel(BaseBlockProperty.STONE));
@@ -170,7 +173,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLACK_WHITE_GREEN_CARVED_WOOD = BLOCKS.register("black_white_green_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> BLACK_WHITE_BLUE_CARVED_WOOD = BLOCKS.register("black_white_blue_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> RED_AND_GREEN_CARVED_WOOD = BLOCKS.register("red_and_green_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> BLUE_AND_WHITE_CARVED_WOOD = BLOCKS.register("blue_and_white_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> BLUE_AND_RED_CARVED_WOOD = BLOCKS.register("blue_and_red_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
+
     public static final RegistryObject<Block> BLUE_WHITE_RED_CARVED_WOOD = BLOCKS.register("blue_white_red_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GREEN_WHITE_RED_CARVED_WOOD = BLOCKS.register("green_white_red_carved_wood", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> BLUE_AND_YELLOW_CARVED_WOOD_VARIANT_1 = BLOCKS.register("blue_and_yellow_carved_wood_variant_1", () -> new BaseBlock(BaseBlockProperty.WOOD));
@@ -181,8 +185,8 @@ public class BlockRegistry {
 
     // DARK OAK
 
-    public static final RegistryObject<Block> ENGRAVED_DARK_OAK_BEAM = BLOCKS.register("engraved_dark_oak_beam", () -> new ChiralDirectionalBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> ENGRAVED_DARK_OAK_BEAM_EDGE = BLOCKS.register("engraved_dark_oak_beam_edge", () -> new ChiralDirectionalBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> CARVED_DARK_OAK_BEAM = BLOCKS.register("carved_dark_oak_beam", () -> new ChiralDirectionalBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> CARVED_DARK_OAK_BEAM_EDGE = BLOCKS.register("carved_dark_oak_beam_edge", () -> new ChiralDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GILDED_DARK_OAK = BLOCKS.register("gilded_dark_oak", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> CHISELED_GILDED_DARK_OAK = BLOCKS.register("chiseled_gilded_dark_oak", () -> new BaseBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GILDED_DARK_OAK_SLAB = BLOCKS.register("gilded_dark_oak_slab", () -> new BaseSlab(BaseBlockProperty.WOOD));
@@ -241,7 +245,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLUE_ZHAOTOU_EDGE = BLOCKS.register("blue_zhaotou_edge", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GREEN_AND_BLUE_ZHAOTOU = BLOCKS.register("green_and_blue_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> BLUE_AND_GREEN_ZHAOTOU = BLOCKS.register("blue_and_green_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> BLUE_AND_GREEN_DOUBLE_LAYER_ZHAOTOU = BLOCKS.register("blue_and_green_double_layer_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> BLUE_AND_GREEN_DOUBLE_LAYERED_ZHAOTOU = BLOCKS.register("blue_and_green_double_layered_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> CYAN_AND_RED_ZHAOTOU = BLOCKS.register("cyan_and_red_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> CYAN_AND_BLUE_ZHAOTOU = BLOCKS.register("cyan_and_blue_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GRAY_BLACK_RED_ZHAOTOU = BLOCKS.register("gray_black_red_zhaotou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
@@ -253,9 +257,9 @@ public class BlockRegistry {
 
     // GUTOU
 
-    public static final RegistryObject<Block> GUTOU = BLOCKS.register("gutou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> BLUE_GREEN_YELLOW_GUTOU = BLOCKS.register("blue_green_yellow_gutou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> GREEN_BLUE_BLACK_GUTOU = BLOCKS.register("green_blue_black_gutou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> BLUE_GREEN_YELLOW_GUTOU = BLOCKS.register("blue_green_yellow_gutou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> BLUE_AND_YELLOW_GUTOU = BLOCKS.register("blue_and_yellow_gutou", () -> new BaseDirectionalBlock(BaseBlockProperty.WOOD));
 
     // RAFTERS
 
@@ -293,11 +297,11 @@ public class BlockRegistry {
 
     // QUETI
 
-    public static final RegistryObject<Block> GILDED_DARK_OAK_LONG_QUETI = BLOCKS.register("gilded_dark_oak_long_queti", () -> new WallSideBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> GILDED_DARK_OAK_LONG_QUETI_EDGE = BLOCKS.register("gilded_dark_oak_long_queti_edge", () -> new OrientableWallSideBlock(BaseBlockProperty.WOOD));
-    public static final RegistryObject<Block> HORIZONTAL_GILDED_DARK_OAK_LONG_QUETI = BLOCKS.register("horizontal_gilded_dark_oak_queti", () -> new SideAxialBlock(BaseBlockProperty.WOOD, 4));
-    public static final RegistryObject<Block> CENTRAL_GILDED_DARK_OAK_LONG_QUETI = BLOCKS.register("central_gilded_dark_oak_queti", () -> new CentralAxialBlock(BaseBlockProperty.WOOD, 4));
-    public static final RegistryObject<Block> VERTICAL_GILDED_DARK_OAK_LONG_QUETI = BLOCKS.register("vertical_gilded_dark_oak_queti", () -> new SideAxialBlock(BaseBlockProperty.WOOD, 4));
+    public static final RegistryObject<Block> LONG_GILDED_DARK_OAK_QUETI = BLOCKS.register("long_gilded_dark_oak_queti", () -> new WallSideBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> LONG_GILDED_DARK_OAK_QUETI_EDGE = BLOCKS.register("long_gilded_dark_oak_queti_edge", () -> new OrientableWallSideBlock(BaseBlockProperty.WOOD));
+    public static final RegistryObject<Block> HORIZONTAL_GILDED_DARK_OAK_QUETI = BLOCKS.register("horizontal_gilded_dark_oak_queti", () -> new SideAxialBlock(BaseBlockProperty.WOOD, 4));
+    public static final RegistryObject<Block> CENTRAL_GILDED_DARK_OAK_QUETI = BLOCKS.register("central_gilded_dark_oak_queti", () -> new CentralAxialBlock(BaseBlockProperty.WOOD, 4));
+    public static final RegistryObject<Block> VERTICAL_GILDED_DARK_OAK_QUETI = BLOCKS.register("vertical_gilded_dark_oak_queti", () -> new SideAxialBlock(BaseBlockProperty.WOOD, 4));
     public static final RegistryObject<Block> WOODEN_QUETI = BLOCKS.register("wooden_queti", () -> new WallSideBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> WOODEN_QUETI_EDGE = BLOCKS.register("wooden_queti_edge", () -> new OrientableWallSideBlock(BaseBlockProperty.WOOD));
     public static final RegistryObject<Block> TALL_WOODEN_QUETI_EDGE = BLOCKS.register("tall_wooden_queti_edge", () -> new OrientableWallSideBlock(BaseBlockProperty.WOOD));
@@ -534,7 +538,7 @@ public class BlockRegistry {
             () -> new WallSideBlock(BaseBlockProperty.PAPER));
     public static final RegistryObject<Block> HORIZONTAL_LANDSCAPE_PAINTING = BLOCKS.register("horizontal_landscape_painting",
             () -> new WallSideBlock(BaseBlockProperty.PAPER));
-    public static final RegistryObject<Block> YELLOW_LONG_HANGING_PAINTING = BLOCKS.register("yellow_long_hanging_painting",
+    public static final RegistryObject<Block> LONG_YELLOW_HANGING_PAINTING = BLOCKS.register("long_yellow_hanging_painting",
             () -> new WallSideBlock(BaseBlockProperty.PAPER));
     public static final RegistryObject<Block> DAMAGED_LANDSCAPE_PAINTING = BLOCKS.register("damaged_landscape_painting",
             () -> new WallSideBlock(BaseBlockProperty.PAPER));
@@ -566,7 +570,18 @@ public class BlockRegistry {
     public static final RegistryObject<Block> XIAOLONGBAO = BLOCKS.register("xiaolongbao", //TODO xiaolongbao 8 bites in one block, return 2 containers
             () -> ConsumableDecorativeBlock.with(BaseBlockProperty.BAMBOO).bites(8).platedWith(ItemRegistry.POLISHED_OAK_PLANK).food(ModFoods.BAOZI)
                     .whenFinished((pState, pLevel, pPos, pPlayer) -> {pLevel.setBlock(pPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL); pLevel.gameEvent(pPlayer, GameEvent.BLOCK_DESTROY, pPos);})
-                    .shaped(DecorativeBlock.FULL_BLOCK).directional().build());
+                    .shaped(DecorativeBlock.FULL_BLOCK).noOcclusion().directional().build());
+
+    // ICE
+
+    public static final RegistryObject<Block> ICICLE = BLOCKS.register("icicle", () -> new Icicle(3));
+    public static final RegistryObject<Block> LARGE_ICICLE = BLOCKS.register("large_icicle", () -> new Icicle(2));
+
+    // CELEBRATION
+
+    public static final RegistryObject<Block> COUPLET = BLOCKS.register("couplet", () -> new OrientableWallSideBlock(BaseBlockProperty.PAPER));
+    public static final RegistryObject<Block> COUPLET_TOP = BLOCKS.register("couplet_top", () -> new WallSideBlock(BaseBlockProperty.PAPER));
+    public static final RegistryObject<Block> FU_MARK = BLOCKS.register("fu_mark", () -> new WallSideBlock(BaseBlockProperty.PAPER));
 
     /**
      *  FURNITURE
@@ -682,6 +697,95 @@ public class BlockRegistry {
             () -> new DecorativeBlock(DecorativeBlock.with(BaseBlockProperty.BAMBOO_WOOD).shaped(OpeningBlock.MIDDLE_AXIAL).directional().noOcclusion()));
 
     /**
+     *  PLANTS
+     */
+
+    // LOTUS
+
+
+    public static final RegistryObject<Block> SMALL_LOTUS_LEAF = BLOCKS.register("small_lotus_leaf",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> SMALL_DARK_GREEN_LOTUS_LEAF = BLOCKS.register("small_dark_green_lotus_leaf",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> MEDIUM_LOTUS_LEAF = BLOCKS.register("medium_lotus_leaf",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> LARGE_LOTUS_LEAF = BLOCKS.register("large_lotus_leaf",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> TILTED_LOTUS_LEAF = BLOCKS.register("tilted_lotus_leaf",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.HALF_BLOCK).directional().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> SMALL_LOTUS_LEAF_CLUSTER = BLOCKS.register("small_lotus_leaf_cluster",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> MEDIUM_LOTUS_LEAF_CLUSTER = BLOCKS.register("medium_lotus_leaf_cluster",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FLAT_16).directional().diagonallyPlaceable().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> LOTUS_BUD = BLOCKS.register("lotus_bud",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FULL_8).directional().noCollision().noOcclusion()));
+    public static final RegistryObject<Block> MEDIUM_LOTUS = BLOCKS.register("medium_lotus",
+            () -> new AquaticPlantBlock(DecorativeBlock.with(BaseBlockProperty.LILY).shaped(DecorativeBlock.FULL_BLOCK).directional().noCollision().noOcclusion()));
+
+    // IVY
+
+    public static final RegistryObject<Block> SMALL_RED_IVY = BLOCKS.register("small_red_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> MEDIUM_RED_IVY = BLOCKS.register("medium_red_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> LARGE_RED_IVY = BLOCKS.register("large_red_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> SMALL_YELLOW_IVY = BLOCKS.register("small_yellow_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> MEDIUM_YELLOW_IVY = BLOCKS.register("medium_yellow_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> LARGE_YELLOW_IVY = BLOCKS.register("large_yellow_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> SMALL_GREEN_IVY = BLOCKS.register("small_green_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> MEDIUM_GREEN_IVY = BLOCKS.register("medium_green_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+    public static final RegistryObject<Block> LARGE_GREEN_IVY = BLOCKS.register("large_green_ivy",
+            () -> new WallSideBlock(BaseBlockProperty.PLANT));
+
+    // LEAVES
+
+    public static final RegistryObject<Block> SMALL_LEAF_PILE = BLOCKS.register("small_leaf_pile",
+            () -> DecorativeBlock.with(BaseBlockProperty.PLANT).shaped(DecorativeBlock.FLAT_16).directional().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> MEDIUM_LEAF_PILE = BLOCKS.register("medium_leaf_pile",
+            () -> DecorativeBlock.with(BaseBlockProperty.PLANT).shaped(DecorativeBlock.FLAT_16).directional().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> LARGE_LEAF_PILE = BLOCKS.register("large_leaf_pile",
+            () -> DecorativeBlock.with(BaseBlockProperty.PLANT).shaped(DecorativeBlock.FLAT_16).directional().noCollision().noOcclusion().build());
+
+    // BONSAI
+
+    public static final RegistryObject<Block> SMALL_GREETING_PINE_BONSAI = BLOCKS.register("small_greeting_pine_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_12).directional().noCollision().build());
+    public static final RegistryObject<Block> MEDIUM_GREETING_PINE_BONSAI = BLOCKS.register("medium_greeting_pine_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> LARGE_GREETING_PINE_BONSAI = BLOCKS.register("large_greeting_pine_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().placeOffset(Direction.UP).noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> SMALL_WHITE_PORCELAIN_VASE_BONSAI = BLOCKS.register("small_white_porcelain_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_10).directional().diagonallyPlaceable().noCollision().build());
+    public static final RegistryObject<Block> MEDIUM_WHITE_PORCELAIN_VASE_BONSAI = BLOCKS.register("medium_white_porcelain_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().diagonallyPlaceable().noCollision().build());
+    public static final RegistryObject<Block> LARGE_WHITE_PORCELAIN_VASE_BONSAI = BLOCKS.register("large_white_porcelain_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().diagonallyPlaceable().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> SMALL_GREEN_PORCELAIN_VASE_BONSAI = BLOCKS.register("small_green_porcelain_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_10).directional().noCollision().build());
+    public static final RegistryObject<Block> GREEN_PORCELAIN_VASE_BONSAI = BLOCKS.register("green_porcelain_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_10).directional().diagonallyPlaceable().noCollision().build());
+    public static final RegistryObject<Block> RED_CORAL_BONSAI = BLOCKS.register("red_coral_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().noCollision().build());
+    public static final RegistryObject<Block> RED_PLUM_BONSAI = BLOCKS.register("red_plum_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_12).directional().noCollision().build());
+    public static final RegistryObject<Block> BAMBOO_BONSAI = BLOCKS.register("bamboo_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_14).directional().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> TALL_BLUE_VASE_BONSAI = BLOCKS.register("tall_blue_vase_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_12).directional().diagonallyPlaceable().placeOffset(Direction.UP).noCollision().build());
+    public static final RegistryObject<Block> TALL_BLUE_AND_WHITE_PORCELAIN_BONSAI = BLOCKS.register("tall_blue_and_white_porcelain_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.PORCELAIN).shaped(DecorativeBlock.FULL_10).directional().diagonallyPlaceable().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> MEDIUM_BONSAI = BLOCKS.register("medium_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.TERRACOTTA).shaped(DecorativeBlock.FULL_12).directional().diagonallyPlaceable().noCollision().noOcclusion().build());
+    public static final RegistryObject<Block> LARGE_BONSAI = BLOCKS.register("large_bonsai",
+            () -> DecorativeBlock.with(BaseBlockProperty.TERRACOTTA).shaped(DecorativeBlock.FULL_14).directional().diagonallyPlaceable().noCollision().noOcclusion().build());
+
+    /**
      *  LAMPS
      */
 
@@ -709,6 +813,15 @@ public class BlockRegistry {
     public static final RegistryObject<Block> STONE_LAMP = BLOCKS.register("stone_lamp",
             () -> DecorativeBlock.with(BaseBlockProperty.STONE).luminous().build());
 
+    // STREETLIGHT
+
+    public static final RegistryObject<Block> RED_LANTERN_STREETLIGHT = BLOCKS.register("red_lantern_streetlight",
+            () -> new HangingLantern(HangingLantern.HangingLanternType.POLE));
+    public static final RegistryObject<Block> HANGING_RED_LANTERN_STREETLIGHT = BLOCKS.register("hanging_red_lantern_streetlight",
+            () -> new HangingLantern(HangingLantern.HangingLanternType.HANGING));
+    public static final RegistryObject<Block> STREETLIGHT_POLE = BLOCKS.register("streetlight_pole",
+            () -> DecorativeBlock.with(BaseBlockProperty.WOOD).shaped(HangingLantern.POLE_ONLY).directional().noOcclusion().build());
+
     // CANDLESTICK
 
     public static final RegistryObject<Block> RED_CANDLE = BLOCKS.register("red_candle",
@@ -723,16 +836,22 @@ public class BlockRegistry {
      */
 
     public static final RegistryObject<Block> JADE_ORE = BLOCKS.register("jade_ore", () -> new BaseOreBlock(2, 5));
+    public static final RegistryObject<Block> DEEPSLATE_JADE_ORE = BLOCKS.register("deepslate_jade_ore", () -> new BaseOreBlock(2, 5));
     public static final RegistryObject<Block> MAGNESITE_ORE = BLOCKS.register("magnesite_ore", () -> new BaseOreBlock(2, 5));
+    public static final RegistryObject<Block> DEEPSLATE_MAGNESITE_ORE = BLOCKS.register("deepslate_magnesite_ore", () -> new BaseOreBlock(2, 5));
     public static final RegistryObject<Block> HEMATITE_ORE = BLOCKS.register("hematite_ore", () -> new BaseOreBlock(1, 3));
+    public static final RegistryObject<Block> DEEPSLATE_HEMATITE_ORE = BLOCKS.register("deepslate_hematite_ore", () -> new BaseOreBlock(1, 3));
+    public static final RegistryObject<Block> NETHER_COBALT_ORE = BLOCKS.register("nether_cobalt_ore", () -> new BaseOreBlock(2, 5));
 
     /**
      *  TOOLS
      */
 
     public static final RegistryObject<Block> WOODWORKING_WORKBENCH = BLOCKS.register("woodworking_workbench", WoodworkingWorkBench::new);
+    public static final RegistryObject<Block> BRICK_KILN = BLOCKS.register("brick_kiln", BrickKiln::new);
+    public static final RegistryObject<Block> CHISEL_TABLE = BLOCKS.register("chisel_table", ChiselTableMedium::new);
 
-    private static RegistryObject<Block> simpleBlock(String name) {
-        return BLOCKS.register(name, () -> new Block(BlockBehaviour.Properties.of()));
+    private static RegistryObject<Block> simpleBlock(String name, Material material) {
+        return BLOCKS.register(name, () -> new Block(BlockBehaviour.Properties.of(material)));
     }
 }

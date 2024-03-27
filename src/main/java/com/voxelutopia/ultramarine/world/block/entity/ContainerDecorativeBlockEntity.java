@@ -44,7 +44,7 @@ public class ContainerDecorativeBlockEntity extends RandomizableContainerBlockEn
 
     @Override
     protected Component getDefaultName() {
-        return Component.translatable("container." + ForgeRegistries.BLOCKS.getKey(block).getPath());
+        return Component.literal(Component.translatable("container." +  ForgeRegistries.BLOCKS .getKey(block).getPath()).getString());
     }
 
     @Override

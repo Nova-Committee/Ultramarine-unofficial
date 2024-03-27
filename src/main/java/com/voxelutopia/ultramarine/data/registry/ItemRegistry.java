@@ -3,10 +3,10 @@ package com.voxelutopia.ultramarine.data.registry;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.ModCreativeTab;
 import com.voxelutopia.ultramarine.data.ModFoods;
-import com.voxelutopia.ultramarine.world.item.BaseFood;
-import com.voxelutopia.ultramarine.world.item.WoodenHammer;
+import com.voxelutopia.ultramarine.world.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,15 +28,18 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CYAN_BRICK_SLAB = fromBlock(BlockRegistry.CYAN_BRICK_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CYAN_BRICK_STAIRS = fromBlock(BlockRegistry.CYAN_BRICK_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CYAN_BRICK_WALL = fromBlock(BlockRegistry.CYAN_BRICK_WALL, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> BLACK_BRICKS = fromBlock(BlockRegistry.BLACK_BRICKS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLACK_BRICK_SLAB = fromBlock(BlockRegistry.BLACK_BRICK_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLACK_BRICK_STAIRS = fromBlock(BlockRegistry.BLACK_BRICK_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLACK_BRICK_WALL = fromBlock(BlockRegistry.BLACK_BRICK_WALL, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> BROWNISH_RED_STONE_BRICKS = fromBlock(BlockRegistry.BROWNISH_RED_STONE_BRICKS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BROWNISH_RED_STONE_BRICK_SLAB = fromBlock(BlockRegistry.BROWNISH_RED_STONE_BRICK_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BROWNISH_RED_STONE_BRICK_STAIRS = fromBlock(BlockRegistry.BROWNISH_RED_STONE_BRICK_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BROWNISH_RED_STONE_BRICK_WALL = fromBlock(BlockRegistry.BROWNISH_RED_STONE_BRICK_WALL, ModCreativeTab.BUILDING_BLOCKS);
-    public static final RegistryObject<Item> WHITE_AMD_PINK_MIXED_BRICKS = fromBlock(BlockRegistry.WHITE_AMD_PINK_MIXED_BRICKS, ModCreativeTab.BUILDING_BLOCKS);
+
+    public static final RegistryObject<Item> WHITE_AND_PINK_MIXED_BRICKS = fromBlock(BlockRegistry.WHITE_AND_PINK_MIXED_BRICKS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> GREEN_WEATHERED_BRICKS = fromBlock(BlockRegistry.GREEN_WEATHERED_BRICKS, ModCreativeTab.BUILDING_BLOCKS);
 
     // STONES
@@ -44,16 +47,20 @@ public class ItemRegistry {
     public static final RegistryObject<Item> PALE_YELLOW_STONE = fromBlock(BlockRegistry.PALE_YELLOW_STONE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> PALE_YELLOW_STONE_SLAB = fromBlock(BlockRegistry.PALE_YELLOW_STONE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> PALE_YELLOW_STONE_STAIRS = fromBlock(BlockRegistry.PALE_YELLOW_STONE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> VARIEGATED_ROCKS = fromBlock(BlockRegistry.VARIEGATED_ROCKS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> VARIEGATED_ROCK_SLAB = fromBlock(BlockRegistry.VARIEGATED_ROCK_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> VARIEGATED_ROCK_STAIRS = fromBlock(BlockRegistry.VARIEGATED_ROCK_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> WEATHERED_STONE = fromBlock(BlockRegistry.WEATHERED_STONE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> WEATHERED_STONE_SLAB = fromBlock(BlockRegistry.WEATHERED_STONE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> WEATHERED_STONE_STAIRS = fromBlock(BlockRegistry.WEATHERED_STONE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> POLISHED_WEATHERED_STONE = fromBlock(BlockRegistry.POLISHED_WEATHERED_STONE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> POLISHED_WEATHERED_STONE_SLAB = fromBlock(BlockRegistry.POLISHED_WEATHERED_STONE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> POLISHED_WEATHERED_STONE_STAIRS = fromBlock(BlockRegistry.POLISHED_WEATHERED_STONE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> POLISHED_WEATHERED_STONE_WALL = fromBlock(BlockRegistry.POLISHED_WEATHERED_STONE_WALL, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> GREEN_WEATHERED_STONE = fromBlock(BlockRegistry.GREEN_WEATHERED_STONE, ModCreativeTab.BUILDING_BLOCKS);
 
     // FLOOR TILES
@@ -62,21 +69,26 @@ public class ItemRegistry {
     public static final RegistryObject<Item> LIGHT_CYAN_FLOOR_TILE_SLAB = fromBlock(BlockRegistry.LIGHT_CYAN_FLOOR_TILE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> LIGHT_CYAN_FLOOR_TILE_STAIRS = fromBlock(BlockRegistry.LIGHT_CYAN_FLOOR_TILE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> LIGHT_CYAN_FLOOR_TILE_WALL = fromBlock(BlockRegistry.LIGHT_CYAN_FLOOR_TILE_WALL, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> CYAN_FLOOR_TILE = fromBlock(BlockRegistry.CYAN_FLOOR_TILE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CYAN_FLOOR_TILE_SLAB = fromBlock(BlockRegistry.CYAN_FLOOR_TILE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CYAN_FLOOR_TILE_STAIRS = fromBlock(BlockRegistry.CYAN_FLOOR_TILE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CYAN_FLOOR_TILE_WALL = fromBlock(BlockRegistry.CYAN_FLOOR_TILE_WALL, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> DARK_CYAN_FLOOR_TILE = fromBlock(BlockRegistry.DARK_CYAN_FLOOR_TILE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> LAYERED_CYAN_FLOOR_TILES = fromBlock(BlockRegistry.LAYERED_CYAN_FLOOR_TILES, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> VERTICAL_CYAN_FLOOR_TILES = fromBlock(BlockRegistry.VERTICAL_CYAN_FLOOR_TILES, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> MIXED_CYAN_FLOOR_TILES = fromBlock(BlockRegistry.MIXED_CYAN_FLOOR_TILES, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CHISELED_CYAN_FLOOR_TILE = fromBlock(BlockRegistry.CHISELED_CYAN_FLOOR_TILE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> CUT_CYAN_FLOOR_TILES = fromBlock(BlockRegistry.CUT_CYAN_FLOOR_TILES, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> WEATHERED_RED_STONE_TILE = fromBlock(BlockRegistry.WEATHERED_RED_STONE_TILE, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLUE_AND_BLACK_TILE = fromBlock(BlockRegistry.BLUE_AND_BLACK_TILE, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> GREEN_GLAZED_TILES = fromBlock(BlockRegistry.GREEN_GLAZED_TILES, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> GREEN_GLAZED_TILE_SLAB = fromBlock(BlockRegistry.GREEN_GLAZED_TILE_SLAB, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> GREEN_GLAZED_TILE_STAIRS = fromBlock(BlockRegistry.GREEN_GLAZED_TILE_STAIRS, ModCreativeTab.BUILDING_BLOCKS);
+
     public static final RegistryObject<Item> BLACK_FLOOR_TILES = fromBlock(BlockRegistry.BLACK_FLOOR_TILES, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLACK_FLOOR_TILES_LITTLE_MOSSY = fromBlock(BlockRegistry.BLACK_FLOOR_TILES_LITTLE_MOSSY, ModCreativeTab.BUILDING_BLOCKS);
     public static final RegistryObject<Item> BLACK_FLOOR_TILES_MODERATE_MOSSY = fromBlock(BlockRegistry.BLACK_FLOOR_TILES_MODERATE_MOSSY, ModCreativeTab.BUILDING_BLOCKS);
@@ -167,7 +179,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLACK_WHITE_GREEN_CARVED_WOOD = fromBlock(BlockRegistry.BLACK_WHITE_GREEN_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> BLACK_WHITE_BLUE_CARVED_WOOD = fromBlock(BlockRegistry.BLACK_WHITE_BLUE_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> RED_AND_GREEN_CARVED_WOOD = fromBlock(BlockRegistry.RED_AND_GREEN_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> BLUE_AND_WHITE_CARVED_WOOD = fromBlock(BlockRegistry.BLUE_AND_WHITE_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> BLUE_AND_RED_CARVED_WOOD = fromBlock(BlockRegistry.BLUE_AND_RED_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> BLUE_WHITE_RED_CARVED_WOOD = fromBlock(BlockRegistry.BLUE_WHITE_RED_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GREEN_WHITE_RED_CARVED_WOOD = fromBlock(BlockRegistry.GREEN_WHITE_RED_CARVED_WOOD, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> BLUE_AND_YELLOW_CARVED_WOOD_VARIANT_1 = fromBlock(BlockRegistry.BLUE_AND_YELLOW_CARVED_WOOD_VARIANT_1, ModCreativeTab.DECORATIVE_BLOCKS);
@@ -178,13 +190,13 @@ public class ItemRegistry {
 
     // DARK OAK
 
-    public static final RegistryObject<Item> ENGRAVED_DARK_OAK_BEAM = fromBlock(BlockRegistry.ENGRAVED_DARK_OAK_BEAM, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> ENGRAVED_DARK_OAK_BEAM_EDGE = fromBlock(BlockRegistry.ENGRAVED_DARK_OAK_BEAM_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> CARVED_DARK_OAK_BEAM = fromBlock(BlockRegistry.CARVED_DARK_OAK_BEAM, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> CARVED_DARK_OAK_BEAM_EDGE = fromBlock(BlockRegistry.CARVED_DARK_OAK_BEAM_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GILDED_DARK_OAK = fromBlock(BlockRegistry.GILDED_DARK_OAK, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> CHISELED_GILDED_DARK_OAK = fromBlock(BlockRegistry.CHISELED_GILDED_DARK_OAK, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GILDED_DARK_OAK_SLAB = fromBlock(BlockRegistry.GILDED_DARK_OAK_SLAB, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GILDED_DARK_OAK_STAIRS = fromBlock(BlockRegistry.GILDED_DARK_OAK_STAIRS, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> GILDED_DARK_OAK_BEAM_BRACKET = fromBlock(BlockRegistry.GILDED_DARK_OAK_BRACKET, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> GILDED_DARK_OAK_BRACKET = fromBlock(BlockRegistry.GILDED_DARK_OAK_BRACKET, ModCreativeTab.DECORATIVE_BLOCKS);
 
     // PILLARS
 
@@ -238,7 +250,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLUE_ZHAOTOU_EDGE = fromBlock(BlockRegistry.BLUE_ZHAOTOU_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GREEN_AND_BLUE_ZHAOTOU = fromBlock(BlockRegistry.GREEN_AND_BLUE_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> BLUE_AND_GREEN_ZHAOTOU = fromBlock(BlockRegistry.BLUE_AND_GREEN_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> BLUE_AND_GREEN_DOUBLE_LAYER_ZHAOTOU = fromBlock(BlockRegistry.BLUE_AND_GREEN_DOUBLE_LAYER_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> BLUE_AND_GREEN_DOUBLE_LAYERED_ZHAOTOU = fromBlock(BlockRegistry.BLUE_AND_GREEN_DOUBLE_LAYERED_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> CYAN_AND_RED_ZHAOTOU = fromBlock(BlockRegistry.CYAN_AND_RED_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> CYAN_AND_BLUE_ZHAOTOU = fromBlock(BlockRegistry.CYAN_AND_BLUE_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GRAY_BLACK_RED_ZHAOTOU = fromBlock(BlockRegistry.GRAY_BLACK_RED_ZHAOTOU, ModCreativeTab.DECORATIVE_BLOCKS);
@@ -250,9 +262,9 @@ public class ItemRegistry {
 
     // GUTOU
 
-    public static final RegistryObject<Item> GUTOU = fromBlock(BlockRegistry.GUTOU, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> BLUE_GREEN_YELLOW_GUTOU = fromBlock(BlockRegistry.BLUE_GREEN_YELLOW_GUTOU, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> GREEN_BLUE_BLACK_GUTOU = fromBlock(BlockRegistry.GREEN_BLUE_BLACK_GUTOU, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> BLUE_GREEN_YELLOW_GUTOU = fromBlock(BlockRegistry.BLUE_GREEN_YELLOW_GUTOU, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> BLUE_AND_YELLOW_GUTOU = fromBlock(BlockRegistry.BLUE_AND_YELLOW_GUTOU, ModCreativeTab.DECORATIVE_BLOCKS);
 
     // RAFTERS
 
@@ -290,11 +302,11 @@ public class ItemRegistry {
 
     // QUETI
 
-    public static final RegistryObject<Item> GILDED_DARK_OAK_LONG_QUETI = fromBlock(BlockRegistry.GILDED_DARK_OAK_LONG_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> GILDED_DARK_OAK_LONG_QUETI_EDGE = fromBlock(BlockRegistry.GILDED_DARK_OAK_LONG_QUETI_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> HORIZONTAL_GILDED_DARK_OAK_LONG_QUETI = fromBlock(BlockRegistry.HORIZONTAL_GILDED_DARK_OAK_LONG_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> CENTRAL_GILDED_DARK_OAK_LONG_QUETI = fromBlock(BlockRegistry.CENTRAL_GILDED_DARK_OAK_LONG_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
-    public static final RegistryObject<Item> VERTICAL_GILDED_DARK_OAK_LONG_QUETI = fromBlock(BlockRegistry.VERTICAL_GILDED_DARK_OAK_LONG_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> LONG_GILDED_DARK_OAK_QUETI = fromBlock(BlockRegistry.LONG_GILDED_DARK_OAK_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> LONG_GILDED_DARK_OAK_QUETI_EDGE = fromBlock(BlockRegistry.LONG_GILDED_DARK_OAK_QUETI_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> HORIZONTAL_GILDED_DARK_OAK_QUETI = fromBlock(BlockRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> CENTRAL_GILDED_DARK_OAK_QUETI = fromBlock(BlockRegistry.CENTRAL_GILDED_DARK_OAK_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
+    public static final RegistryObject<Item> VERTICAL_GILDED_DARK_OAK_QUETI = fromBlock(BlockRegistry.VERTICAL_GILDED_DARK_OAK_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> WOODEN_QUETI = fromBlock(BlockRegistry.WOODEN_QUETI, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> WOODEN_QUETI_EDGE = fromBlock(BlockRegistry.WOODEN_QUETI_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
     public static final RegistryObject<Item> TALL_WOODEN_QUETI_EDGE = fromBlock(BlockRegistry.TALL_WOODEN_QUETI_EDGE, ModCreativeTab.DECORATIVE_BLOCKS);
@@ -462,7 +474,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> HORIZONTAL_OLD_LANDSCAPE_PAINTING = fromBlock(BlockRegistry.HORIZONTAL_OLD_LANDSCAPE_PAINTING, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> HORIZONTAL_CALLIGRAPHY = fromBlock(BlockRegistry.HORIZONTAL_CALLIGRAPHY, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> HORIZONTAL_LANDSCAPE_PAINTING = fromBlock(BlockRegistry.HORIZONTAL_LANDSCAPE_PAINTING, ModCreativeTab.DECORATIONS);
-    public static final RegistryObject<Item> YELLOW_LONG_HANGING_PAINTING = fromBlock(BlockRegistry.YELLOW_LONG_HANGING_PAINTING, ModCreativeTab.DECORATIONS);
+    public static final RegistryObject<Item> LONG_YELLOW_HANGING_PAINTING = fromBlock(BlockRegistry.LONG_YELLOW_HANGING_PAINTING, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> DAMAGED_LANDSCAPE_PAINTING = fromBlock(BlockRegistry.DAMAGED_LANDSCAPE_PAINTING, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> PORTRAIT = fromBlock(BlockRegistry.PORTRAIT, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> HANGING_PAINTING_FAN = fromBlock(BlockRegistry.HANGING_PAINTING_FAN, ModCreativeTab.DECORATIONS);
@@ -478,6 +490,17 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SCATTERED_CARROTS = fromBlock(BlockRegistry.SCATTERED_CARROTS, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> WINE_POT = fromBlock(BlockRegistry.WINE_POT, ModCreativeTab.DECORATIONS);
     public static final RegistryObject<Item> XIAOLONGBAO = fromBlock(BlockRegistry.XIAOLONGBAO, ModCreativeTab.DECORATIONS);
+
+    // ICE
+
+    public static final RegistryObject<Item> ICICLE = fromBlock(BlockRegistry.ICICLE, ModCreativeTab.DECORATIONS);
+    public static final RegistryObject<Item> LARGE_ICICLE = fromBlock(BlockRegistry.LARGE_ICICLE, ModCreativeTab.DECORATIONS);
+
+    // CELEBRATION
+
+    public static final RegistryObject<Item> COUPLET = fromBlock(BlockRegistry.COUPLET, ModCreativeTab.DECORATIONS);
+    public static final RegistryObject<Item> COUPLET_TOP = fromBlock(BlockRegistry.COUPLET_TOP, ModCreativeTab.DECORATIONS);
+    public static final RegistryObject<Item> FU_MARK = fromBlock(BlockRegistry.FU_MARK, ModCreativeTab.DECORATIONS);
 
     /**
      *  FURNITURE
@@ -553,6 +576,58 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BAMBOO_CURTAIN = fromBlock(BlockRegistry.BAMBOO_CURTAIN, ModCreativeTab.WINDOWS_AND_DOORS);
 
     /**
+     *  PLANTS
+     */
+
+    // LOTUS
+
+    public static final RegistryObject<Item> SMALL_LOTUS_LEAF = aquaticPlantItem(BlockRegistry.SMALL_LOTUS_LEAF, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_DARK_GREEN_LOTUS_LEAF = aquaticPlantItem(BlockRegistry.SMALL_DARK_GREEN_LOTUS_LEAF, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_LOTUS_LEAF = aquaticPlantItem(BlockRegistry.MEDIUM_LOTUS_LEAF, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_LOTUS_LEAF = aquaticPlantItem(BlockRegistry.LARGE_LOTUS_LEAF, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> TILTED_LOTUS_LEAF = aquaticPlantItem(BlockRegistry.TILTED_LOTUS_LEAF, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_LOTUS_LEAF_CLUSTER = aquaticPlantItem(BlockRegistry.SMALL_LOTUS_LEAF_CLUSTER, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_LOTUS_LEAF_CLUSTER = aquaticPlantItem(BlockRegistry.MEDIUM_LOTUS_LEAF_CLUSTER, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LOTUS_BUD = aquaticPlantItem(BlockRegistry.LOTUS_BUD, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_LOTUS = aquaticPlantItem(BlockRegistry.MEDIUM_LOTUS, ModCreativeTab.PLANTS);
+
+    // IVY
+
+    public static final RegistryObject<Item> SMALL_RED_IVY = fromBlock(BlockRegistry.SMALL_RED_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_RED_IVY = fromBlock(BlockRegistry.MEDIUM_RED_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_RED_IVY = fromBlock(BlockRegistry.LARGE_RED_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_YELLOW_IVY = fromBlock(BlockRegistry.SMALL_YELLOW_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_YELLOW_IVY = fromBlock(BlockRegistry.MEDIUM_YELLOW_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_YELLOW_IVY = fromBlock(BlockRegistry.LARGE_YELLOW_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_GREEN_IVY = fromBlock(BlockRegistry.SMALL_GREEN_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_GREEN_IVY = fromBlock(BlockRegistry.MEDIUM_GREEN_IVY, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_GREEN_IVY = fromBlock(BlockRegistry.LARGE_GREEN_IVY, ModCreativeTab.PLANTS);
+
+    // LEAVES
+
+    public static final RegistryObject<Item> SMALL_LEAF_PILE = fromBlock(BlockRegistry.SMALL_LEAF_PILE, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_LEAF_PILE = fromBlock(BlockRegistry.MEDIUM_LEAF_PILE, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_LEAF_PILE = fromBlock(BlockRegistry.LARGE_LEAF_PILE, ModCreativeTab.PLANTS);
+
+    // BONSAI
+
+    public static final RegistryObject<Item> SMALL_GREETING_PINE_BONSAI = fromBlock(BlockRegistry.SMALL_GREETING_PINE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_GREETING_PINE_BONSAI = fromBlock(BlockRegistry.MEDIUM_GREETING_PINE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_GREETING_PINE_BONSAI = fromBlock(BlockRegistry.LARGE_GREETING_PINE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_WHITE_PORCELAIN_VASE_BONSAI = fromBlock(BlockRegistry.SMALL_WHITE_PORCELAIN_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_WHITE_PORCELAIN_VASE_BONSAI = fromBlock(BlockRegistry.MEDIUM_WHITE_PORCELAIN_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_WHITE_PORCELAIN_VASE_BONSAI = fromBlock(BlockRegistry.LARGE_WHITE_PORCELAIN_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> SMALL_GREEN_PORCELAIN_VASE_BONSAI = fromBlock(BlockRegistry.SMALL_GREEN_PORCELAIN_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> GREEN_PORCELAIN_VASE_BONSAI = fromBlock(BlockRegistry.GREEN_PORCELAIN_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> RED_CORAL_BONSAI = fromBlock(BlockRegistry.RED_CORAL_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> RED_PLUM_BONSAI = fromBlock(BlockRegistry.RED_PLUM_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> BAMBOO_BONSAI = fromBlock(BlockRegistry.BAMBOO_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> TALL_BLUE_VASE_BONSAI = fromBlock(BlockRegistry.TALL_BLUE_VASE_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> TALL_BLUE_AND_WHITE_PORCELAIN_BONSAI = fromBlock(BlockRegistry.TALL_BLUE_AND_WHITE_PORCELAIN_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> MEDIUM_BONSAI = fromBlock(BlockRegistry.MEDIUM_BONSAI, ModCreativeTab.PLANTS);
+    public static final RegistryObject<Item> LARGE_BONSAI = fromBlock(BlockRegistry.LARGE_BONSAI, ModCreativeTab.PLANTS);
+
+    /**
      *  LAMPS
      */
 
@@ -571,6 +646,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SMALL_STANDING_LAMP = fromBlock(BlockRegistry.SMALL_STANDING_LAMP, ModCreativeTab.LAMPS);
     public static final RegistryObject<Item> STONE_LAMP = fromBlock(BlockRegistry.STONE_LAMP, ModCreativeTab.LAMPS);
 
+    // STREETLIGHT
+
+    public static final RegistryObject<Item> RED_LANTERN_STREETLIGHT = fromBlock(BlockRegistry.RED_LANTERN_STREETLIGHT, ModCreativeTab.LAMPS);
+    public static final RegistryObject<Item> HANGING_RED_LANTERN_STREETLIGHT = fromBlock(BlockRegistry.HANGING_RED_LANTERN_STREETLIGHT, ModCreativeTab.LAMPS);
+    public static final RegistryObject<Item> STREETLIGHT_POLE = fromBlock(BlockRegistry.STREETLIGHT_POLE, ModCreativeTab.LAMPS);
+
     // CANDLESTICK
 
     public static final RegistryObject<Item> RED_CANDLE = fromBlock(BlockRegistry.RED_CANDLE, ModCreativeTab.LAMPS);
@@ -584,8 +665,12 @@ public class ItemRegistry {
     // ORE BLOCK
 
     public static final RegistryObject<Item> JADE_ORE = fromBlock(BlockRegistry.JADE_ORE, ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> DEEPSLATE_JADE_ORE = fromBlock(BlockRegistry.DEEPSLATE_JADE_ORE, ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> MAGNESITE_ORE = fromBlock(BlockRegistry.MAGNESITE_ORE, ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> DEEPSLATE_MAGNESITE_ORE = fromBlock(BlockRegistry.DEEPSLATE_MAGNESITE_ORE, ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> HEMATITE_ORE = fromBlock(BlockRegistry.HEMATITE_ORE, ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> DEEPSLATE_HEMATITE_ORE = fromBlock(BlockRegistry.DEEPSLATE_HEMATITE_ORE, ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> NETHER_COBALT_ORE = fromBlock(BlockRegistry.NETHER_COBALT_ORE, ModCreativeTab.MATERIALS);
 
     // ORE PRODUCT
 
@@ -594,6 +679,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MAGNESITE_DUST = simpleItem("magnesite_dust", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> RAW_HEMATITE = simpleItem("raw_hematite", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> HEMATITE_DUST = simpleItem("hematite_dust", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> RAW_COBALT = simpleItem("raw_cobalt", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> COBALT_DUST = simpleItem("cobalt_dust", ModCreativeTab.MATERIALS);
 
     // BRICK
 
@@ -603,15 +690,16 @@ public class ItemRegistry {
 
     // BRICK MATERIAL
 
-    public static final RegistryObject<Item> RAW_CLAY_BRICK = simpleItem("raw_clay_brick", ModCreativeTab.MATERIALS);
-    public static final RegistryObject<Item> RAW_CYAN_BRICK = simpleItem("raw_cyan_brick", ModCreativeTab.MATERIALS);
-    public static final RegistryObject<Item> RAW_BLACK_BRICK = simpleItem("raw_black_brick", ModCreativeTab.MATERIALS);
-    public static final RegistryObject<Item> RAW_BROWNISH_RED_STONE_BRICK = simpleItem("raw_brownish_red_stone_brick", ModCreativeTab.MATERIALS);
-    public static final RegistryObject<Item> FRESH_BRICK = simpleItem("fresh_brick", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> UNFIRED_CLAY_BRICK = simpleItem("unfired_clay_brick", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> UNFIRED_RAW_CYAN_BRICK = simpleItem("unfired_cyan_brick", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> UNFIRED_BLACK_BRICK = simpleItem("unfired_black_brick", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> UNFIRED_RAW_BROWNISH_RED_STONE_BRICK = simpleItem("unfired_brownish_red_stone_brick", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> FIRED_BRICK = simpleItem("fired_brick", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> PRISMARINE_DUST = simpleItem("prismarine_dust", ModCreativeTab.MATERIALS);
 
     // ROOF TILE
 
+    public static final RegistryObject<Item> UNFIRED_ROOF_TILE = simpleItem("unfired_roof_tile", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> GRAY_ROOF_TILE = simpleItem("gray_roof_tile", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> YELLOW_ROOF_TILE = simpleItem("yellow_roof_tile", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> GREEN_ROOF_TILE = simpleItem("green_roof_tile", ModCreativeTab.MATERIALS);
@@ -644,6 +732,39 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GOLD_PARTS = simpleItem("gold_parts", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> JADE_PARTS = simpleItem("jade_parts", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> PORCELAIN_PARTS = simpleItem("porcelain_parts", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> BRONZE_PARTS = simpleItem("bronze_parts", ModCreativeTab.MATERIALS);
+
+    // DYE POWDERS
+
+    public static final RegistryObject<Item> WHITE_DYE_POWDER = dyePowderItem("white_dye_powder", DyeColor.WHITE);
+    public static final RegistryObject<Item> ORANGE_DYE_POWDER = dyePowderItem("orange_dye_powder", DyeColor.ORANGE);
+    public static final RegistryObject<Item> MAGENTA_DYE_POWDER = dyePowderItem("magenta_dye_powder", DyeColor.MAGENTA);
+    public static final RegistryObject<Item> LIGHT_BLUE_DYE_POWDER = dyePowderItem("light_blue_dye_powder", DyeColor.LIGHT_BLUE);
+    public static final RegistryObject<Item> YELLOW_DYE_POWDER = dyePowderItem("yellow_dye_powder", DyeColor.YELLOW);
+    public static final RegistryObject<Item> LIME_DYE_POWDER = dyePowderItem("lime_dye_powder", DyeColor.LIME);
+    public static final RegistryObject<Item> PINK_DYE_POWDER = dyePowderItem("pink_dye_powder", DyeColor.PINK);
+    public static final RegistryObject<Item> GRAY_DYE_POWDER = dyePowderItem("gray_dye_powder", DyeColor.GRAY);
+    public static final RegistryObject<Item> LIGHT_GRAY_DYE_POWDER = dyePowderItem("light_gray_dye_powder", DyeColor.LIGHT_GRAY);
+    public static final RegistryObject<Item> CYAN_DYE_POWDER = dyePowderItem("cyan_dye_powder", DyeColor.CYAN);
+    public static final RegistryObject<Item> PURPLE_DYE_POWDER = dyePowderItem("purple_dye_powder", DyeColor.PURPLE);
+    public static final RegistryObject<Item> BLUE_DYE_POWDER = dyePowderItem("blue_dye_powder", DyeColor.BLUE);
+    public static final RegistryObject<Item> BROWN_DYE_POWDER = dyePowderItem("brown_dye_powder", DyeColor.BROWN);
+    public static final RegistryObject<Item> GREEN_DYE_POWDER = dyePowderItem("green_dye_powder", DyeColor.GREEN);
+    public static final RegistryObject<Item> RED_DYE_POWDER = dyePowderItem("red_dye_powder", DyeColor.RED);
+    public static final RegistryObject<Item> BLACK_DYE_POWDER = dyePowderItem("black_dye_powder", DyeColor.BLACK);
+    public static final RegistryObject<Item> GOLD_DYE_POWDER = dyePowderItem("gold_dye_powder", DyeColor.YELLOW);
+
+    // TEMPLATES
+
+    public static final RegistryObject<Item> CARVED_WOOD_TEMPLATE = ITEMS.register("carved_wood_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> FANGXIN_TEMPLATE = ITEMS.register("fangxin_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> FANGXIN_EDGE_TEMPLATE = ITEMS.register("fangxin_edge_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> ZHAOTOU_TEMPLATE = ITEMS.register("zhaotou_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> GUTOU_TEMPLATE = ITEMS.register("gutou_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> RAFTER_TEMPLATE = ITEMS.register("rafter_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> RAFTER_END_TEMPLATE = ITEMS.register("rafter_end_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> ARCHITRAVE_TEMPLATE = ITEMS.register("architrave_template", ChiselTemplate::new);
+    public static final RegistryObject<Item> CAIHUA_TEMPLATE = ITEMS.register("caihua_template", ChiselTemplate::new);
 
     // MATERIALS
 
@@ -653,6 +774,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SILK = simpleItem("silk", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> XUAN_PAPER = simpleItem("xuan_paper", ModCreativeTab.MATERIALS);
     public static final RegistryObject<Item> COPPER_CASH_COIN = simpleItem("copper_cash_coin", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> BRONZE_INGOT = simpleItem("bronze_ingot", ModCreativeTab.MATERIALS);
+    public static final RegistryObject<Item> BRONZE_DUST = simpleItem("bronze_dust", ModCreativeTab.MATERIALS);
 
     // FOOD
 
@@ -666,23 +789,43 @@ public class ItemRegistry {
      *  TOOLS
      */
 
-    public static final RegistryObject<Item> WOODEN_HAMMER = ITEMS.register("wooden_hammer", WoodenHammer::new);
+    public static final RegistryObject<Item> WOODEN_MALLET = ITEMS.register("wooden_mallet", WoodenMallet::new);
     public static final RegistryObject<Item> WOODWORKING_WORKBENCH = fromBlock(BlockRegistry.WOODWORKING_WORKBENCH, ModCreativeTab.TOOLS);
+    public static final RegistryObject<Item> BRICK_KILN = fromBlock(BlockRegistry.BRICK_KILN, ModCreativeTab.TOOLS);
+    public static final RegistryObject<Item> CHISEL_TABLE = fromBlock(BlockRegistry.CHISEL_TABLE, ModCreativeTab.TOOLS);
 
     private static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block, ModCreativeTab tabDef) {
-        RegistryObject<Item> registryObject = ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties()));
+        RegistryObject<Item> registryObject = ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tabDef.getTab())));
+        ModCreativeTab.putItemInSet(registryObject, tabDef);
+        return registryObject;
+    }
+
+    private static <B extends Block> RegistryObject<Item> aquaticPlantItem(RegistryObject<B> block, ModCreativeTab tabDef) {
+        RegistryObject<Item> registryObject = ITEMS.register(block.getId().getPath(), () -> new AquaticPlantBlockItem(block.get(), new Item.Properties().tab(tabDef.getTab())));
+        ModCreativeTab.putItemInSet(registryObject, tabDef);
+        return registryObject;
+    }
+
+    private static <B extends Block> RegistryObject<Item> registerBlockItem(String name, BlockItem blockItem, ModCreativeTab tabDef) {
+        RegistryObject<Item> registryObject = ITEMS.register(name, () -> blockItem);
         ModCreativeTab.putItemInSet(registryObject, tabDef);
         return registryObject;
     }
 
     private static RegistryObject<Item> simpleItem(String name, ModCreativeTab tabDef) {
-        RegistryObject<Item> registryObject = ITEMS.register(name, () -> new Item(new Item.Properties()));
+        RegistryObject<Item> registryObject = ITEMS.register(name, () -> new Item(new Item.Properties().tab(tabDef.getTab())));
         ModCreativeTab.putItemInSet(registryObject, tabDef);
         return registryObject;
     }
 
     private static RegistryObject<Item> foodItem(String name, FoodProperties food){
         RegistryObject<Item> registryObject = ITEMS.register(name, () -> new BaseFood(food));
+        ModCreativeTab.putItemInSet(registryObject, ModCreativeTab.MATERIALS);
+        return registryObject;
+    }
+
+    private static RegistryObject<Item> dyePowderItem(String name, DyeColor color){
+        RegistryObject<Item> registryObject = ITEMS.register(name, () -> new DyePowder(color));
         ModCreativeTab.putItemInSet(registryObject, ModCreativeTab.MATERIALS);
         return registryObject;
     }

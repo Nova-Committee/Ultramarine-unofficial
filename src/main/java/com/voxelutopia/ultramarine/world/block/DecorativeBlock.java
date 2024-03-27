@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Optional;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -130,6 +129,7 @@ public class DecorativeBlock extends HorizontalDirectionalBlock implements BaseB
 
     @Override
     public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        /*
         if (offsetDirection != null) {
             switch (offsetDirection) {
                 case DOWN -> {
@@ -146,6 +146,9 @@ public class DecorativeBlock extends HorizontalDirectionalBlock implements BaseB
                 }
             }
         }
+
+         */
+        //todo add config or toggle
     }
 
     @Override
@@ -236,7 +239,7 @@ public class DecorativeBlock extends HorizontalDirectionalBlock implements BaseB
         }
 
         public Builder noOcclusion() {
-            this.property.properties = this.property.properties.noOcclusion();
+            this.property.properties.noOcclusion();
             return this;
         }
 

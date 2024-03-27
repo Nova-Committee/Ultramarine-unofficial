@@ -16,8 +16,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
 public class CandleStick extends DecorativeBlock{
 
     private final Vec3 flameOffset;
@@ -55,5 +53,4 @@ public class CandleStick extends DecorativeBlock{
                     0.0D, pRandom.nextDouble() * 0.01d, 0.0D);
         }
     }
-
 }

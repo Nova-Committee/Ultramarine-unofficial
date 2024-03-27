@@ -2,26 +2,26 @@ package com.voxelutopia.ultramarine.datagen;
 
 import com.voxelutopia.ultramarine.data.ModItemTags;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
-import net.minecraft.core.HolderLookup;
+import com.voxelutopia.ultramarine.world.item.ChiselTemplate;
+import com.voxelutopia.ultramarine.world.item.DyePowder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagProvider extends ItemTagsProvider {
 
-    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, TagsProvider<Block> blockTagProvider, ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, blockTagProvider.contentsGetter(), DataGenerators.MOD_ID, existingFileHelper);
+    public ModItemTagProvider(DataGenerator pGenerator, BlockTagsProvider pBlockTagsProvider, ExistingFileHelper existingFileHelper) {
+        super(pGenerator, pBlockTagsProvider, DataGenerators.MOD_ID, existingFileHelper);
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider lookupProvider) {
+    protected void addTags() {
         tag(ItemTags.PLANKS)
                 .add(ItemRegistry.ROSEWOOD_PLANKS.get());
         tag(ModItemTags.POLISHED_PLANKS)
@@ -35,6 +35,34 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ItemRegistry.POLISHED_WARPED_PLANK.get())
                 .add(ItemRegistry.POLISHED_ROSEWOOD_PLANK.get())
                 .add(ItemRegistry.POLISHED_EBONY_PLANK.get());
+        tag(ModItemTags.DYE_POWDER).add(ItemRegistry.ITEMS.getEntries().stream().filter(reg -> reg.get() instanceof DyePowder)
+                .map(RegistryObject::get).toList().toArray(new Item[0]));
+        tag(ModItemTags.CHISEL_TEMPLATES).add(ItemRegistry.ITEMS.getEntries().stream().filter(reg -> reg.get() instanceof ChiselTemplate)
+                .map(RegistryObject::get).toList().toArray(new Item[0]));
+        tag(ModItemTags.PARTS)
+                .add(ItemRegistry.WOODEN_PARTS.get())
+                .add(ItemRegistry.PORCELAIN_PARTS.get())
+                .add(ItemRegistry.JADE_PARTS.get())
+                .add(ItemRegistry.GOLD_PARTS.get());
+        tag(ModItemTags.PAINTING_SCROLL_ITEMS)
+                .add(ItemRegistry.LONG_HANGING_PAINTING.get())
+                .add(ItemRegistry.WHITE_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.HORIZONTAL_OLD_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.HORIZONTAL_CALLIGRAPHY.get())
+                .add(ItemRegistry.HORIZONTAL_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.LONG_YELLOW_HANGING_PAINTING.get())
+                .add(ItemRegistry.PORTRAIT.get())
+                .add(ItemRegistry.SINCERE_CALLIGRAPHY.get());
+        tag(ModItemTags.PAINTING_SCROLL_ITEMS)
+                .add(ItemRegistry.LONG_HANGING_PAINTING.get())
+                .add(ItemRegistry.WHITE_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.HORIZONTAL_OLD_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.HORIZONTAL_CALLIGRAPHY.get())
+                .add(ItemRegistry.HORIZONTAL_LANDSCAPE_PAINTING.get())
+                .add(ItemRegistry.LONG_YELLOW_HANGING_PAINTING.get())
+                .add(ItemRegistry.PORTRAIT.get())
+                .add(ItemRegistry.SINCERE_CALLIGRAPHY.get());
+
 
     }
     @NotNull

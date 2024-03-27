@@ -3,12 +3,12 @@ package com.voxelutopia.ultramarine.datagen;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.world.block.*;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
@@ -20,7 +20,7 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void addTags(HolderLookup.Provider p_256380_) {
+    protected void addTags(HolderLookup.Provider pProvider) {
         BlockRegistry.BLOCKS.getEntries().stream().filter(blockRegistryObject -> blockRegistryObject.get() instanceof BaseBlockPropertyHolder)
                         .forEach(blockRegistryObject -> {
                             Block block = blockRegistryObject.get();
@@ -31,13 +31,21 @@ public class ModBlockTagProvider extends BlockTagsProvider {
                 .forEach(blockRegistryObject -> tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockRegistryObject.get()));
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(BlockRegistry.JADE_ORE.get())
+                .add(BlockRegistry.DEEPSLATE_JADE_ORE.get())
                 .add(BlockRegistry.MAGNESITE_ORE.get())
-                .add(BlockRegistry.HEMATITE_ORE.get());
+                .add(BlockRegistry.DEEPSLATE_MAGNESITE_ORE.get())
+                .add(BlockRegistry.HEMATITE_ORE.get())
+                .add(BlockRegistry.DEEPSLATE_HEMATITE_ORE.get())
+                .add(BlockRegistry.NETHER_COBALT_ORE.get());
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlockRegistry.MAGNESITE_ORE.get())
-                .add(BlockRegistry.HEMATITE_ORE.get());
+                .add(BlockRegistry.DEEPSLATE_MAGNESITE_ORE.get())
+                .add(BlockRegistry.HEMATITE_ORE.get())
+                .add(BlockRegistry.DEEPSLATE_HEMATITE_ORE.get());
         tag(BlockTags.NEEDS_IRON_TOOL)
-                .add(BlockRegistry.JADE_ORE.get());
+                .add(BlockRegistry.JADE_ORE.get())
+                .add(BlockRegistry.DEEPSLATE_JADE_ORE.get())
+                .add(BlockRegistry.NETHER_COBALT_ORE.get());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(BlockRegistry.OCTAGONAL_PALACE_LANTERN.get())
                 .add(BlockRegistry.SQUARE_PALACE_LANTERN.get())
@@ -55,7 +63,8 @@ public class ModBlockTagProvider extends BlockTagsProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return DataGenerators.MOD_ID + " Block Tags";
     }
+
 }

@@ -4,7 +4,10 @@ import com.voxelutopia.ultramarine.data.ModBlockTags;
 import com.voxelutopia.ultramarine.data.registry.SoundRegistry;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -62,7 +65,13 @@ public final class BaseBlockProperty {
             .strength(1F, 2F), BlockMaterial.FLAX);
     public static BaseBlockProperty CROP = new BaseBlockProperty(BlockBehaviour.Properties.of()
             .sound(SoundType.CROP)
-            .strength(1F, 1.5F), BlockMaterial.CROP);
+            .strength(1F, 1.5F), BlockMaterial.PLANT);
+    public static BaseBlockProperty PLANT = new BaseBlockProperty(BlockBehaviour.Properties.of()
+            .sound(SoundType.CROP)
+            .strength(1F, 1.5F), BlockMaterial.PLANT);
+    public static BaseBlockProperty LILY = new BaseBlockProperty(BlockBehaviour.Properties.of()
+            .sound(SoundType.LILY_PAD)
+            .strength(1F, 1.5F), BlockMaterial.PLANT);
     public static BaseBlockProperty SILK = new BaseBlockProperty(BlockBehaviour.Properties.of()
             .sound(SoundType.WOOL)
             .strength(1F, 2F), BlockMaterial.FABRIC);
@@ -72,11 +81,14 @@ public final class BaseBlockProperty {
     public static BaseBlockProperty DYE = new BaseBlockProperty(BlockBehaviour.Properties.of()
             .sound(SoundType.WOOL)
             .strength(1F, 1F), BlockMaterial.PAPER);
+    public static BaseBlockProperty ICE = new BaseBlockProperty(BlockBehaviour.Properties.of()
+            .sound(SoundType.CROP)
+            .strength(0.5F, 1.0F), BlockMaterial.ICE);
 
-    BlockBehaviour.Properties properties;
-    BlockMaterial material;
+    final BlockBehaviour.Properties properties;
+    final BlockMaterial material;
 
-    BaseBlockProperty(BlockBehaviour.Properties properties, BlockMaterial material){
+    BaseBlockProperty(final BlockBehaviour.Properties properties, final BlockMaterial material){
         this.properties = properties;
         this.material = material;
     }
@@ -86,18 +98,30 @@ public final class BaseBlockProperty {
     }
 
     public BaseBlockProperty copy(){
-        return new BaseBlockProperty(this.properties, this.material);
+        BlockBehaviour.Properties properties1 = BlockBehaviour.Properties.copy(new BlockBehaviour(this.properties) {
+            @Override
+            public Item asItem() {
+                return Items.AIR;
+            }
+
+            @Override
+            protected Block asBlock() {
+                return Blocks.AIR;
+            }
+        });
+        return new BaseBlockProperty(properties1, this.material);
     }
 
     public enum BlockMaterial{
         STONE(BlockTags.MINEABLE_WITH_PICKAXE),
         METAL(BlockTags.MINEABLE_WITH_PICKAXE),
+        ICE(BlockTags.MINEABLE_WITH_PICKAXE),
         WOOD(BlockTags.MINEABLE_WITH_AXE),
         PORCELAIN(BlockTags.MINEABLE_WITH_PICKAXE),
         BAMBOO(BlockTags.MINEABLE_WITH_AXE),
         FABRIC(ModBlockTags.MINEABLE_WITH_SHEARS),
         PAPER(ModBlockTags.MINEABLE_WITH_SHEARS),
-        CROP(BlockTags.MINEABLE_WITH_HOE),
+        PLANT(BlockTags.MINEABLE_WITH_HOE),
         FLAX(BlockTags.MINEABLE_WITH_HOE);
 
         final TagKey<Block> tool;

@@ -26,10 +26,8 @@ public class BaseOreBlock extends DropExperienceBlock {
         this(UniformInt.of(minXp, maxXp));
     }
 
-
     @Override
     public int getExpDrop(BlockState state, LevelReader level, RandomSource randomSource, BlockPos pos, int fortuneLevel, int silkTouchLevel) {
         return silkTouchLevel == 0 ? this.xpRange.sample(randomSource) : 0;
     }
-
 }

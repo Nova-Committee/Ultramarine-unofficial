@@ -8,7 +8,9 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -100,7 +102,7 @@ public class RailingBlock extends Block implements BaseBlockPropertyHolder, Simp
         boolean west = this.connectsTo(westState, westState.isFaceSturdy(levelreader, westSide, Direction.EAST));
         boolean up = !((east && west && !north && !south) || (!east && !west && north && south));
         BlockState waterState = this.defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
-        return waterState.setValue(NORTH, north).setValue(SOUTH, south).setValue(EAST, east).setValue(SOUTH, south).setValue(UP, up);
+        return waterState.setValue(NORTH, north).setValue(SOUTH, south).setValue(EAST, east).setValue(WEST, west).setValue(UP, up);
     }
 
     @Override
@@ -142,7 +144,7 @@ public class RailingBlock extends Block implements BaseBlockPropertyHolder, Simp
     }
 
     private boolean connectsTo(BlockState pState, boolean pSideSolid) {
-        return pState.is(this) || !isExceptionForConnection(pState) && pSideSolid;
+        return pState.is(this) || pState.getBlock() instanceof RailingSlant || !isExceptionForConnection(pState) && pSideSolid;
     }
 
     @Override

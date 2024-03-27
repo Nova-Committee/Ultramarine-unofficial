@@ -1,6 +1,8 @@
 package com.voxelutopia.ultramarine.client.event;
 
 import com.voxelutopia.ultramarine.client.render.SeatEntityRenderer;
+import com.voxelutopia.ultramarine.client.screen.BrickKilnScreen;
+import com.voxelutopia.ultramarine.client.screen.ChiselTableScreen;
 import com.voxelutopia.ultramarine.client.screen.ContainerDecorativeBlockScreen;
 import com.voxelutopia.ultramarine.client.screen.WoodworkingWorkbenchScreen;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
@@ -28,7 +30,6 @@ public class ModClientRenderEventHandler {
 
     private static void setRenderLayers(FMLClientSetupEvent e) {
         e.enqueueWork(() -> {
-            /*
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ABACUS.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BRUSH_TOOLS.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BOTTLE_GOURD.get(), RenderType.cutout());
@@ -63,6 +64,7 @@ public class ModClientRenderEventHandler {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_SKY_LANTERN.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.YELLOW_SKY_LANTERN.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.STONE_LAMP.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_LANTERN_STREETLIGHT.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_WOODEN_RAILING.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_WOODEN_RAILING_EDGE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WOODEN_RAILING.get(), RenderType.cutout());
@@ -89,8 +91,8 @@ public class ModClientRenderEventHandler {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GREEN_FANGXIN_PATTERN.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GREEN_FANGXIN_PATTERN_EDGE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CARVED_ZHAOTOU_PATTERN.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GILDED_DARK_OAK_LONG_QUETI.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GILDED_DARK_OAK_LONG_QUETI_EDGE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LONG_GILDED_DARK_OAK_QUETI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LONG_GILDED_DARK_OAK_QUETI_EDGE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WOODEN_QUETI.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.TALL_WOODEN_QUETI_EDGE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WOODEN_QUETI_EDGE.get(), RenderType.cutout());
@@ -118,6 +120,8 @@ public class ModClientRenderEventHandler {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHESS_TABLE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.HIGH_TABLE_WITH_WHITE_TOP.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CENSER_TABLE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ICICLE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_ICICLE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.PORCELAIN_INLAID_GRAND_CHAIR.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.PORCELAIN_INLAID_TABLE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHAIR_WITH_YELLOW_CUSHION.get(), RenderType.cutout());
@@ -126,9 +130,44 @@ public class ModClientRenderEventHandler {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_EBONY_TABLE.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.OAK_BED.get(), RenderType.cutout());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.PAINTED_SCREEN.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WOODWORKING_WORKBENCH.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LOTUS_BUD.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_LOTUS.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.TILTED_LOTUS_LEAF.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_LOTUS_LEAF.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_LOTUS_LEAF_CLUSTER.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_LOTUS_LEAF_CLUSTER.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_LOTUS_LEAF.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_DARK_GREEN_LOTUS_LEAF.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_LOTUS_LEAF.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_RED_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_RED_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_RED_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_YELLOW_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_YELLOW_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_YELLOW_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_GREEN_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_GREEN_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_GREEN_IVY.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_LEAF_PILE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_LEAF_PILE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_LEAF_PILE.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_CORAL_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.TALL_BLUE_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BAMBOO_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.RED_PLUM_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_GREETING_PINE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.TALL_BLUE_AND_WHITE_PORCELAIN_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GREEN_PORCELAIN_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_GREEN_PORCELAIN_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_WHITE_PORCELAIN_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_WHITE_PORCELAIN_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LARGE_GREETING_PINE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SMALL_WHITE_PORCELAIN_VASE_BONSAI.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MEDIUM_GREETING_PINE_BONSAI.get(), RenderType.cutout());
 
-             */
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WOODWORKING_WORKBENCH.get(), RenderType.cutout());
         });
     }
 
@@ -140,6 +179,8 @@ public class ModClientRenderEventHandler {
             MenuScreens.register(MenuTypeRegistry.CONTAINER_DECORATIVE_BLOCK_MENU_FOOD_9X3.get(), ContainerDecorativeBlockScreen::new);
             MenuScreens.register(MenuTypeRegistry.CONTAINER_DECORATIVE_BLOCK_MENU_FOOD_9X6.get(), ContainerDecorativeBlockScreen::new);
             MenuScreens.register(MenuTypeRegistry.WOODWORKING_WORKBENCH.get(), WoodworkingWorkbenchScreen::new);
+            MenuScreens.register(MenuTypeRegistry.BRICK_KILN.get(), BrickKilnScreen::new);
+            MenuScreens.register(MenuTypeRegistry.CHISEL_TABLE.get(), ChiselTableScreen::new);
         });
     }
 

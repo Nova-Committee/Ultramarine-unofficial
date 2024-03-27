@@ -1,6 +1,12 @@
 package com.voxelutopia.ultramarine.world.block;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class BaseBlock extends Block implements BaseBlockPropertyHolder {
 
@@ -11,8 +17,13 @@ public class BaseBlock extends Block implements BaseBlockPropertyHolder {
     }
 
     public BaseBlock(BaseBlockProperty property){
-        super(property.properties);
+        super(property.copy().properties);
         this.property = property;
+    }
+
+    @Override
+    public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return Shapes.block();
     }
 
     public BaseBlockProperty getProperty(){
