@@ -2,10 +2,10 @@ package com.voxelutopia.ultramarine.datagen;
 
 import com.google.common.collect.ImmutableSet;
 import com.voxelutopia.ultramarine.data.ModItemTags;
-import com.voxelutopia.ultramarine.datagen.recipe.ChiselTableRecipeBuilder;
-import com.voxelutopia.ultramarine.datagen.recipe.CompositeSmeltingRecipeBuilder;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
+import com.voxelutopia.ultramarine.datagen.recipe.ChiselTableRecipeBuilder;
+import com.voxelutopia.ultramarine.datagen.recipe.CompositeSmeltingRecipeBuilder;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
@@ -28,11 +28,11 @@ import java.util.function.Consumer;
 public class ModRecipeProvider extends RecipeProvider {
 
     public ModRecipeProvider(DataGenerator pGenerator) {
-        super(pGenerator);
+        super(pGenerator.getPackOutput());
     }
 
     @Override
-    protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> recipeConsumer) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeConsumer) {
 
         categoryBuildingBlocks(recipeConsumer);
         categoryDecorativeBlocks(recipeConsumer);
@@ -45,7 +45,7 @@ public class ModRecipeProvider extends RecipeProvider {
         categoryTools(recipeConsumer);
 
         //TESTS
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_CLAY_BRICK.get()), Ingredient.of(ItemRegistry.PRISMARINE_DUST.get()), ItemRegistry.CYAN_BRICK.get(), 0.1f, 40)
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_CLAY_BRICK.get()), Ingredient.of(ItemRegistry.PRISMARINE_DUST.get()), ItemRegistry.CYAN_BRICK.get(), 0.1f, 40)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_CLAY_BRICK.get()), itemCriterion(ItemRegistry.UNFIRED_CLAY_BRICK.get())).save(recipeConsumer);
     }
 
@@ -64,29 +64,29 @@ public class ModRecipeProvider extends RecipeProvider {
         stoneSlabAndStairsRecipe(ItemRegistry.BROWNISH_RED_STONE_BRICKS.get(), ItemRegistry.BROWNISH_RED_STONE_BRICK_SLAB.get(), ItemRegistry.BROWNISH_RED_STONE_BRICK_STAIRS.get(), recipeConsumer);
         wallRecipe(ItemRegistry.BROWNISH_RED_STONE_BRICKS.get(), ItemRegistry.BROWNISH_RED_STONE_BRICK_WALL.get(), recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.WHITE_AND_PINK_MIXED_BRICKS.get(), 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WHITE_AND_PINK_MIXED_BRICKS.get(), 4)
                 .define('V', ItemRegistry.VARIEGATED_ROCKS.get())
                 .define('Y', ItemRegistry.PALE_YELLOW_STONE.get())
                 .pattern("VY").pattern("YV")
                 .unlockedBy("has_" + ItemRegistry.VARIEGATED_ROCKS.get(), InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.VARIEGATED_ROCKS.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.GREEN_WEATHERED_BRICKS.get(), 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GREEN_WEATHERED_BRICKS.get(), 4)
                 .define('S', ItemRegistry.GREEN_WEATHERED_STONE.get())
                 .pattern("SS").pattern("SS")
                 .unlockedBy("has_" + ItemRegistry.GREEN_WEATHERED_STONE.get(), InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.GREEN_WEATHERED_STONE.get()))
                 .save(recipeConsumer);
 
         //STONES
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.PALE_YELLOW_STONE.get(), 2).requires(Items.STONE).requires(Items.SAND)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.PALE_YELLOW_STONE.get(), 2).requires(Items.STONE).requires(Items.SAND)
                 .unlockedBy(itemUnlockName(Items.STONE), itemCriterion(Items.STONE)).save(recipeConsumer);
         stoneSlabAndStairsRecipe(ItemRegistry.PALE_YELLOW_STONE.get(), ItemRegistry.PALE_YELLOW_STONE_SLAB.get(), ItemRegistry.PALE_YELLOW_STONE_STAIRS.get(), recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.VARIEGATED_ROCKS.get(), 4).requires(Items.COBBLESTONE).requires(Items.GRANITE).requires(Items.DIORITE).requires(Items.ANDESITE)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.VARIEGATED_ROCKS.get(), 4).requires(Items.COBBLESTONE).requires(Items.GRANITE).requires(Items.DIORITE).requires(Items.ANDESITE)
                 .unlockedBy(itemUnlockName(Items.COBBLESTONE), itemCriterion(Items.COBBLESTONE)).save(recipeConsumer);
         stoneSlabAndStairsRecipe(ItemRegistry.VARIEGATED_ROCKS.get(), ItemRegistry.VARIEGATED_ROCK_SLAB.get(), ItemRegistry.VARIEGATED_ROCK_STAIRS.get(), recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.WEATHERED_STONE.get(), 2).requires(Items.STONE).requires(Items.GRAVEL)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.WEATHERED_STONE.get(), 2).requires(Items.STONE).requires(Items.GRAVEL)
                 .unlockedBy(itemUnlockName(Items.STONE), itemCriterion(Items.STONE)).save(recipeConsumer);
         stoneSlabAndStairsRecipe(ItemRegistry.WEATHERED_STONE.get(), ItemRegistry.WEATHERED_STONE_SLAB.get(), ItemRegistry.WEATHERED_STONE_STAIRS.get(), recipeConsumer);
 
@@ -115,14 +115,14 @@ public class ModRecipeProvider extends RecipeProvider {
         blockTransform(ItemRegistry.POLISHED_WEATHERED_STONE.get(), ModItemTags.FORGE_RED_DYE, ItemRegistry.WEATHERED_RED_STONE_TILE.get(), recipeConsumer);
         blockTransform(ItemRegistry.DARK_CYAN_FLOOR_TILE.get(), ModItemTags.FORGE_BLUE_DYE, ItemRegistry.BLUE_AND_BLACK_TILE.get(), recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.GREEN_GLAZED_TILES.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GREEN_GLAZED_TILES.get(), 2)
                 .define('B', Items.GREEN_GLAZED_TERRACOTTA).define('T', ItemRegistry.GREEN_ROOF_TILE.get())
                 .pattern(" T ").pattern("TBT").pattern(" T ")
                 .unlockedBy(itemUnlockName(Items.GREEN_GLAZED_TERRACOTTA), itemCriterion(Items.GREEN_GLAZED_TERRACOTTA))
                 .save(recipeConsumer);
         stoneSlabAndStairsRecipe(ItemRegistry.GREEN_GLAZED_TILES.get(), ItemRegistry.GREEN_GLAZED_TILE_SLAB.get(), ItemRegistry.GREEN_GLAZED_TILE_STAIRS.get(), recipeConsumer);
 
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.BLACK_FLOOR_TILES.get(), 2).requires(Items.COBBLED_DEEPSLATE).requires(ItemRegistry.BLACK_BRICKS.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.BLACK_FLOOR_TILES.get(), 2).requires(Items.COBBLED_DEEPSLATE).requires(ItemRegistry.BLACK_BRICKS.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.BLACK_BRICKS.get()), itemCriterion(ItemRegistry.BLACK_BRICKS.get())).save(recipeConsumer);
         blockTransform(ItemRegistry.BLACK_FLOOR_TILES.get(), Items.MOSS_BLOCK, ItemRegistry.BLACK_FLOOR_TILES_LITTLE_MOSSY.get(), recipeConsumer);
         blockTransform(ItemRegistry.BLACK_FLOOR_TILES_LITTLE_MOSSY.get(), Items.MOSS_BLOCK, ItemRegistry.BLACK_FLOOR_TILES_MODERATE_MOSSY.get(), recipeConsumer);
@@ -134,7 +134,7 @@ public class ModRecipeProvider extends RecipeProvider {
         woodSlabAndStairsRecipe(ItemRegistry.ROSEWOOD_PLANKS.get(), ItemRegistry.ROSEWOOD_SLAB.get(), ItemRegistry.ROSEWOOD_STAIRS.get(), recipeConsumer);
         fenceRecipe(ItemRegistry.ROSEWOOD_PLANKS.get(), ItemRegistry.ROSEWOOD_FENCE.get(), recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.BAMBOO_MAT.get(), 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BAMBOO_MAT.get(), 4)
                 .define('B', Items.BAMBOO).define('S', Items.STRING)
                 .pattern("BSB").pattern("BSB").pattern("BSB")
                 .unlockedBy("has_" + Items.BAMBOO, InventoryChangeTrigger.TriggerInstance.hasItems(Items.BAMBOO))
@@ -164,19 +164,19 @@ public class ModRecipeProvider extends RecipeProvider {
         woodSlabAndStairsRecipe(ItemRegistry.RED_CARVED_WOOD.get(), ItemRegistry.RED_CARVED_WOODEN_SLAB.get(), ItemRegistry.RED_CARVED_WOODEN_STAIRS.get(), recipeConsumer);
         carvedWood(ItemRegistry.BLUE_CARVED_WOOD.get(), new Ingredient[]{Ingredient.of(ModItemTags.FORGE_BLUE_DYE), Ingredient.of(ModItemTags.FORGE_BLUE_DYE)}, recipeConsumer);
         woodSlabAndStairsRecipe(ItemRegistry.BLUE_CARVED_WOOD.get(), ItemRegistry.BLUE_CARVED_WOODEN_SLAB.get(), ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BLUE_CARVED_WOODEN_BRACKET.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BLUE_CARVED_WOODEN_BRACKET.get(), 2)
                 .define('T', ItemRegistry.GREEN_CARVED_WOODEN_SLAB.get())
                 .define('B', ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get())
                 .pattern("T").pattern("B")
                 .unlockedBy(itemUnlockName(ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get()), itemCriterion(ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get()))
                 .save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.BLUE_CARVED_WOODEN_BRACKET_STAIRS.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.BLUE_CARVED_WOODEN_BRACKET_STAIRS.get())
                 .requires(ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get()).requires(ItemRegistry.YELLOW_DYE_POWDER.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get()), itemCriterion(ItemRegistry.BLUE_CARVED_WOODEN_STAIRS.get()))
                 .save(recipeConsumer);
         carvedWood(ItemRegistry.CYAN_CARVED_WOOD.get(), new Ingredient[]{Ingredient.of(ModItemTags.FORGE_CYAN_DYE), Ingredient.of(ModItemTags.FORGE_CYAN_DYE)}, recipeConsumer);
         woodSlabAndStairsRecipe(ItemRegistry.CYAN_CARVED_WOOD.get(), ItemRegistry.CYAN_CARVED_WOODEN_SLAB.get(), ItemRegistry.CYAN_CARVED_WOODEN_STAIRS.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CYAN_CARVED_WOODEN_BRACKET.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CYAN_CARVED_WOODEN_BRACKET.get(), 2)
                 .define('T', ItemRegistry.CYAN_CARVED_WOODEN_SLAB.get())
                 .define('B', ItemRegistry.RED_CARVED_WOODEN_STAIRS.get())
                 .pattern("T").pattern("B")
@@ -184,7 +184,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeConsumer);
         carvedWood(ItemRegistry.GREEN_CARVED_WOOD.get(), new Ingredient[]{Ingredient.of(ModItemTags.FORGE_GREEN_DYE), Ingredient.of(ModItemTags.FORGE_GREEN_DYE)}, recipeConsumer);
         woodSlabAndStairsRecipe(ItemRegistry.GREEN_CARVED_WOOD.get(), ItemRegistry.GREEN_CARVED_WOODEN_SLAB.get(), ItemRegistry.GREEN_CARVED_WOODEN_STAIRS.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GREEN_CARVED_WOODEN_BRACKET.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GREEN_CARVED_WOODEN_BRACKET.get(), 2)
                 .define('T', ItemRegistry.BLUE_CARVED_WOODEN_SLAB.get())
                 .define('B', ItemRegistry.GREEN_CARVED_WOODEN_STAIRS.get())
                 .pattern("T").pattern("B")
@@ -249,7 +249,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(Items.STRIPPED_DARK_OAK_LOG), itemCriterion(Items.STRIPPED_DARK_OAK_LOG)).save(recipeConsumer);
         woodworking(Ingredient.of(Items.STRIPPED_DARK_OAK_LOG), ItemRegistry.CARVED_DARK_OAK_BEAM_EDGE.get())
                 .unlockedBy(itemUnlockName(Items.STRIPPED_DARK_OAK_LOG), itemCriterion(Items.STRIPPED_DARK_OAK_LOG)).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GILDED_DARK_OAK.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GILDED_DARK_OAK.get(), 1)
                 .define('O', Items.STRIPPED_DARK_OAK_WOOD)
                 .define('G', ItemRegistry.GOLD_PARTS.get())
                 .pattern(" G ").pattern("GOG").pattern(" G ")
@@ -265,7 +265,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         carvedWood(ItemRegistry.CARVED_RED_PILLAR.get(), new Ingredient[]{
                 Ingredient.of(ItemRegistry.GOLD_DYE_POWDER.get()), Ingredient.of(ModItemTags.FORGE_RED_DYE), Ingredient.of(ModItemTags.FORGE_RED_DYE)}, recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CARVED_RED_PILLAR_BASE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CARVED_RED_PILLAR_BASE.get(), 1)
                 .define('P', ItemRegistry.CARVED_RED_PILLAR.get())
                 .define('S', Items.SMOOTH_STONE_SLAB)
                 .pattern("P").pattern("S")
@@ -274,13 +274,13 @@ public class ModRecipeProvider extends RecipeProvider {
         zhaotouWood(ItemRegistry.CARVED_RED_PILLAR_HEAD.get(), new Ingredient[]{
                 Ingredient.of(ItemRegistry.GOLD_DYE_POWDER.get()), Ingredient.of(ModItemTags.FORGE_RED_DYE), Ingredient.of(ModItemTags.FORGE_WHITE_DYE), Ingredient.of(ModItemTags.FORGE_BLUE_DYE)},
                 recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SPRUCE_PILLAR_BASE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SPRUCE_PILLAR_BASE.get(), 1)
                 .define('P', Items.SPRUCE_LOG)
                 .define('S', Items.SMOOTH_STONE_SLAB)
                 .pattern("P").pattern("S")
                 .unlockedBy(itemUnlockName(Items.SPRUCE_LOG), itemCriterion(Items.SPRUCE_LOG))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.STRIPPED_DARK_OAK_PILLAR_BASE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.STRIPPED_DARK_OAK_PILLAR_BASE.get(), 1)
                 .define('P', Items.STRIPPED_DARK_OAK_LOG)
                 .define('S', Items.SMOOTH_STONE_SLAB)
                 .pattern("P").pattern("S")
@@ -449,10 +449,10 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(Items.STRIPPED_DARK_OAK_LOG), itemCriterion(Items.STRIPPED_DARK_OAK_LOG)).save(recipeConsumer);
         woodworking(Ingredient.of(Items.STRIPPED_DARK_OAK_LOG), ItemRegistry.DARK_OAK_RAFTER_END.get())
                 .unlockedBy(itemUnlockName(Items.STRIPPED_DARK_OAK_LOG), itemCriterion(Items.STRIPPED_DARK_OAK_LOG)).save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.GILDED_DARK_OAK_RAFTER.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.GILDED_DARK_OAK_RAFTER.get())
                 .requires(ItemRegistry.DARK_OAK_RAFTER.get()).requires(ItemRegistry.GOLD_PARTS.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.DARK_OAK_RAFTER.get()), itemCriterion(ItemRegistry.DARK_OAK_RAFTER.get())).save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.GILDED_DARK_OAK_RAFTER_END.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.GILDED_DARK_OAK_RAFTER_END.get())
                 .requires(ItemRegistry.DARK_OAK_RAFTER_END.get()).requires(ItemRegistry.GOLD_PARTS.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.DARK_OAK_RAFTER_END.get()), itemCriterion(ItemRegistry.DARK_OAK_RAFTER_END.get())).save(recipeConsumer);
         rafter(ItemRegistry.BLUE_TIGER_EYE_RAFTER.get(), new Ingredient[]{
@@ -522,41 +522,41 @@ public class ModRecipeProvider extends RecipeProvider {
         // QUETI
 
         woodworking(ItemRegistry.GILDED_DARK_OAK.get(), ItemRegistry.LONG_GILDED_DARK_OAK_QUETI.get(), 1, recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LONG_GILDED_DARK_OAK_QUETI_EDGE.get()).define('C', ItemRegistry.LONG_GILDED_DARK_OAK_QUETI.get()).pattern("CC")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LONG_GILDED_DARK_OAK_QUETI_EDGE.get()).define('C', ItemRegistry.LONG_GILDED_DARK_OAK_QUETI.get()).pattern("CC")
                 .unlockedBy(itemUnlockName(ItemRegistry.LONG_GILDED_DARK_OAK_QUETI.get()), itemCriterion(ItemRegistry.LONG_GILDED_DARK_OAK_QUETI.get())).save(recipeConsumer);
         woodworking(ItemRegistry.GILDED_DARK_OAK.get(), ItemRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI.get(), 1, recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CENTRAL_GILDED_DARK_OAK_QUETI.get()).define('C', ItemRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI.get()).pattern("CC")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CENTRAL_GILDED_DARK_OAK_QUETI.get()).define('C', ItemRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI.get()).pattern("CC")
                 .unlockedBy(itemUnlockName(ItemRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI.get()), itemCriterion(ItemRegistry.HORIZONTAL_GILDED_DARK_OAK_QUETI.get())).save(recipeConsumer);
         woodworking(ItemRegistry.GILDED_DARK_OAK.get(), ItemRegistry.VERTICAL_GILDED_DARK_OAK_QUETI.get(), 1, recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_QUETI.get(), 2).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_QUETI_EDGE.get(), 2).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.TALL_WOODEN_QUETI_EDGE.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.LARGE_WOODEN_QUETI_EDGE.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), ItemRegistry.SHORT_GLAZED_QUETI.get(), 4)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), RecipeCategory.MISC, ItemRegistry.SHORT_GLAZED_QUETI.get(), 4)
                 .unlockedBy(itemUnlockName(ItemRegistry.GREEN_GLAZED_TILES.get()), itemCriterion(ItemRegistry.GREEN_GLAZED_TILES.get())).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), ItemRegistry.THICK_CARVED_QUETI.get(), 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), RecipeCategory.MISC, ItemRegistry.THICK_CARVED_QUETI.get(), 2)
                 .unlockedBy(itemUnlockName(ItemRegistry.GREEN_GLAZED_TILES.get()), itemCriterion(ItemRegistry.GREEN_GLAZED_TILES.get())).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), ItemRegistry.SHORT_THICK_GLAZED_QUETI.get(), 1)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.GREEN_GLAZED_TILES.get()), RecipeCategory.MISC, ItemRegistry.SHORT_THICK_GLAZED_QUETI.get(), 1)
                 .unlockedBy(itemUnlockName(ItemRegistry.GREEN_GLAZED_TILES.get()), itemCriterion(ItemRegistry.GREEN_GLAZED_TILES.get())).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_GUALUO.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.LARGE_WOODEN_GUALUO.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.LARGE_WOODEN_GUALUO_EDGE.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), ItemRegistry.CARVED_STONE_PANEL.get(), 1)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), RecipeCategory.MISC, ItemRegistry.CARVED_STONE_PANEL.get(), 1)
                 .unlockedBy(itemUnlockName(Items.STONE), itemCriterion(Items.STONE)).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), ItemRegistry.CARVED_STONE_PANEL_EDGE.get(), 1)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), RecipeCategory.MISC, ItemRegistry.CARVED_STONE_PANEL_EDGE.get(), 1)
                 .unlockedBy(itemUnlockName(Items.STONE), itemCriterion(Items.STONE)).save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), ItemRegistry.CARVED_STONE_PANEL_CENTER.get(), 1)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.STONE), RecipeCategory.MISC, ItemRegistry.CARVED_STONE_PANEL_CENTER.get(), 1)
                 .unlockedBy(itemUnlockName(Items.STONE), itemCriterion(Items.STONE)).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CARVED_STONE_QUETI_PART.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CARVED_STONE_QUETI_PART.get())
                 .define('E', ItemRegistry.CARVED_STONE_PANEL_EDGE.get())
                 .define('C', ItemRegistry.CARVED_STONE_PANEL_CENTER.get())
                 .pattern("EC")
                 .unlockedBy(itemUnlockName(ItemRegistry.CARVED_STONE_PANEL.get()), itemCriterion(ItemRegistry.CARVED_STONE_PANEL.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CARVED_STONE_BEAM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CARVED_STONE_BEAM.get())
                 .define('C', ItemRegistry.CARVED_STONE_PANEL.get())
                 .pattern("CCC")
                 .unlockedBy(itemUnlockName(ItemRegistry.CARVED_STONE_PANEL.get()), itemCriterion(ItemRegistry.CARVED_STONE_PANEL.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CARVED_STONE_QUETI.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CARVED_STONE_QUETI.get())
                 .define('E', ItemRegistry.CARVED_STONE_PANEL_EDGE.get())
                 .pattern("E").pattern("E")
                 .unlockedBy(itemUnlockName(ItemRegistry.CARVED_STONE_PANEL.get()), itemCriterion(ItemRegistry.CARVED_STONE_PANEL.get())).save(recipeConsumer);
@@ -605,7 +605,7 @@ public class ModRecipeProvider extends RecipeProvider {
         fangxinEdgePattern(ItemRegistry.GREEN_FANGXIN_PATTERN_EDGE.get(), new Ingredient[]{
                 Ingredient.of(ItemRegistry.BLACK_DYE_POWDER.get()), Ingredient.of(ItemRegistry.LIGHT_BLUE_DYE_POWDER.get()), Ingredient.of(ItemRegistry.BROWN_DYE_POWDER.get()), Ingredient.of(ModItemTags.FORGE_GREEN_DYE)
         }, recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GOLDEN_DRAGON_FANGXIN_PATTERN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GOLDEN_DRAGON_FANGXIN_PATTERN.get())
                 .define('C', ItemRegistry.BLUE_FANGXIN_PATTERN.get())
                 .define('E', ItemRegistry.BLUE_FANGXIN_PATTERN_EDGE.get())
                 .define('G', ItemRegistry.GOLD_DYE_POWDER.get())
@@ -636,21 +636,21 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // CHUIHUA
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.BLUE_AND_GREEN_CHUIHUA.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BLUE_AND_GREEN_CHUIHUA.get())
                 .define('R', ItemRegistry.RED_CARVED_WOODEN_SLAB.get())
                 .define('B', ItemRegistry.BLUE_CARVED_WOODEN_SLAB.get())
                 .define('G', ItemRegistry.GREEN_CARVED_WOODEN_SLAB.get())
                 .pattern("R").pattern("B").pattern("G")
                 .unlockedBy(itemUnlockName(ItemRegistry.BLUE_CARVED_WOODEN_SLAB.get()), itemCriterion(ItemRegistry.BLUE_CARVED_WOODEN_SLAB.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CYAN_AND_YELLOW_CHUIHUA.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CYAN_AND_YELLOW_CHUIHUA.get())
                 .define('C', ItemRegistry.CYAN_CARVED_WOODEN_SLAB.get())
                 .define('O', ItemRegistry.BLUE_AND_RED_CARVED_WOOD.get())
                 .define('G', ItemRegistry.YELLOW_AND_GREEN_CARVED_WOOD.get())
                 .pattern("C").pattern("O").pattern("G")
                 .unlockedBy(itemUnlockName(ItemRegistry.CYAN_CARVED_WOODEN_SLAB.get()), itemCriterion(ItemRegistry.CYAN_CARVED_WOODEN_SLAB.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GILDED_DARK_OAK_CHUIHUA.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GILDED_DARK_OAK_CHUIHUA.get())
                 .define('S', ItemRegistry.GILDED_DARK_OAK_SLAB.get())
                 .define('B', ItemRegistry.GILDED_DARK_OAK.get())
                 .define('P', ItemRegistry.GOLD_PARTS.get())
@@ -660,7 +660,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // ROOF CHARM
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.GOLDEN_GLAZED_ROOF_CHARM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GOLDEN_GLAZED_ROOF_CHARM.get())
                 .define('G', Items.YELLOW_GLAZED_TERRACOTTA)
                 .define('R', ItemRegistry.YELLOW_ROOF_RIDGE_CONNECTION.get())
                 .define('S', ItemRegistry.YELLOW_ROOF_TILE_STAIRS.get())
@@ -672,7 +672,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(Items.YELLOW_GLAZED_TERRACOTTA), itemCriterion(Items.YELLOW_GLAZED_TERRACOTTA))
                 .save(recipeConsumer);
         simpleStonecutting(Items.YELLOW_GLAZED_TERRACOTTA, ItemRegistry.GOLDEN_GLAZED_ROOF_CHARM_ACCESSORY.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GREEN_GLAZED_ROOF_CHARM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GREEN_GLAZED_ROOF_CHARM.get())
                 .define('G', Items.GREEN_GLAZED_TERRACOTTA)
                 .define('R', ItemRegistry.BLACK_ROOF_RIDGE_CONNECTION.get())
                 .define('P', ItemRegistry.GOLD_PARTS.get())
@@ -685,7 +685,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // CEILING
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.QING_GOLDEN_DRAGON_CEILING.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.QING_GOLDEN_DRAGON_CEILING.get())
                 .define('G', ItemRegistry.GREEN_CARVED_WOOD.get())
                 .define('B', ModItemTags.FORGE_BLUE_DYE)
                 .define('D', ItemRegistry.GOLD_DYE_POWDER.get())
@@ -701,14 +701,14 @@ public class ModRecipeProvider extends RecipeProvider {
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_RAILING.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_RAILING_VARIANT.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         blockTransform(ItemRegistry.WOODEN_RAILING.get(), ModItemTags.FORGE_RED_DYE, ItemRegistry.RED_WOODEN_RAILING_EDGE.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_WOODEN_RAILING.get(), 2).define('C', ItemRegistry.RED_WOODEN_RAILING_EDGE.get()).pattern("CC")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_WOODEN_RAILING.get(), 2).define('C', ItemRegistry.RED_WOODEN_RAILING_EDGE.get()).pattern("CC")
                 .unlockedBy(itemUnlockName(ItemRegistry.RED_WOODEN_RAILING_EDGE.get()), itemCriterion(ItemRegistry.RED_WOODEN_RAILING_EDGE.get())).save(recipeConsumer);
 
         // GUARDIAN LION
 
         woodworking(Ingredient.of(ItemTags.LOGS), ItemRegistry.SMALL_WOODEN_GUARDIAN_LION.get(), 1).unlockedBy("has_log", tagUnlock(ItemTags.LOGS)).save(recipeConsumer);
         simpleStonecutting(Items.STONE, ItemRegistry.SMALL_STONE_GUARDIAN_LION.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_JADE_GUARDIAN_LION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_JADE_GUARDIAN_LION.get())
                 .define('L', ItemRegistry.SMALL_STONE_GUARDIAN_LION.get())
                 .define('J', ItemRegistry.JADE.get())
                 .define('P', ItemRegistry.JADE_PARTS.get())
@@ -717,7 +717,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PJP")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()), itemCriterion(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_YELLOW_GLAZED_GUARDIAN_LION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_YELLOW_GLAZED_GUARDIAN_LION.get())
                 .define('L', ItemRegistry.SMALL_STONE_GUARDIAN_LION.get())
                 .define('G', Items.YELLOW_GLAZED_TERRACOTTA)
                 .define('P', ItemRegistry.GOLD_PARTS.get())
@@ -727,7 +727,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PGP")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()), itemCriterion(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_GREEN_GLAZED_GUARDIAN_LION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_GREEN_GLAZED_GUARDIAN_LION.get())
                 .define('L', ItemRegistry.SMALL_STONE_GUARDIAN_LION.get())
                 .define('G', ItemRegistry.GREEN_GLAZED_TILES.get())
                 .define('P', ItemRegistry.PORCELAIN_PARTS.get())
@@ -736,7 +736,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PGP")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()), itemCriterion(ItemRegistry.SMALL_STONE_GUARDIAN_LION.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.XUMI_STONE_MONOLITH.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.XUMI_STONE_MONOLITH.get())
                 .define('B', ItemRegistry.STONE_PILLAR_BASE.get())
                 .define('C', Items.CHISELED_STONE_BRICKS)
                 .define('S', Items.STONE)
@@ -759,7 +759,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // STUDY
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.ABACUS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.ABACUS.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ItemRegistry.WOODEN_PARTS.get())
                 .define('S', Items.STICK)
@@ -768,7 +768,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PFP")
                 .unlockedBy(itemUnlockName(ItemRegistry.WOODEN_PARTS.get()), itemCriterion(ItemRegistry.WOODEN_PARTS.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BRUSH_TOOLS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BRUSH_TOOLS.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ItemRegistry.WOODEN_PARTS.get())
                 .define('S', Items.STICK)
@@ -777,7 +777,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PFP")
                 .unlockedBy(itemUnlockName(ItemRegistry.WOODEN_PARTS.get()), itemCriterion(ItemRegistry.WOODEN_PARTS.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BRUSH_AND_INKSTONE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BRUSH_AND_INKSTONE.get())
                 .define('S', Items.STICK)
                 .define('F', ItemRegistry.FUR.get())
                 .define('R', Items.STONE_SLAB)
@@ -788,30 +788,30 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("RP")
                 .unlockedBy(itemUnlockName(ItemRegistry.XUAN_PAPER.get()), itemCriterion(ItemRegistry.XUAN_PAPER.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RULER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RULER.get())
                 .define('S', Items.STICK)
                 .define('P', ItemRegistry.WOODEN_PARTS.get())
                 .pattern("SPS")
                 .unlockedBy(itemUnlockName(ItemRegistry.WOODEN_PARTS.get()), itemCriterion(ItemRegistry.WOODEN_PARTS.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BOOK_STACK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BOOK_STACK.get())
                 .define('B', Items.BOOK)
                 .define('D', ItemRegistry.BLUE_DYE_POWDER.get())
                 .pattern("BD").pattern("BD").pattern("BD")
                 .unlockedBy(itemUnlockName(Items.BOOK), itemCriterion(Items.BOOK))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.PAPER.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PAPER.get(), 2)
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .pattern("PP")
                 .unlockedBy(itemUnlockName(ItemRegistry.XUAN_PAPER.get()), itemCriterion(ItemRegistry.XUAN_PAPER.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BLUE_BOOK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BLUE_BOOK.get())
                 .define('B', Items.BOOK)
                 .define('D', ItemRegistry.BLUE_DYE_POWDER.get())
                 .pattern("BD")
                 .unlockedBy(itemUnlockName(Items.BOOK), itemCriterion(Items.BOOK))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BAMBOO_SLIPS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BAMBOO_SLIPS.get())
                 .define('S', Items.STRING)
                 .define('B', Items.BAMBOO)
                 .pattern("BBS").pattern("BBS").pattern("BBS")
@@ -820,14 +820,14 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // ROOM DECO
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.BACK_CUSHION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BACK_CUSHION.get())
                 .define('W', Items.YELLOW_WOOL)
                 .define('S', ItemRegistry.SILK.get())
                 .pattern("WS")
                 .pattern("WS")
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.CHESSBOARD.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHESSBOARD.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
                 .define('B', Items.POLISHED_BLACKSTONE)
                 .define('W', Items.SMOOTH_QUARTZ)
@@ -842,7 +842,7 @@ public class ModRecipeProvider extends RecipeProvider {
             TALL_BLUE_AND_WHITE_PORCELAIN_POT
             BLUE_AND_WHITE_PORCELAIN_BOWL
          */
-        ShapedRecipeBuilder.shaped(ItemRegistry.BRONZE_MIRROR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BRONZE_MIRROR.get())
                 .define('I', ItemRegistry.BRONZE_INGOT.get())
                 .define('P', ItemRegistry.BRONZE_PARTS.get())
                 .define('C', Items.COPPER_INGOT)
@@ -850,7 +850,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("CIC")
                 .unlockedBy(itemUnlockName(ItemRegistry.BRONZE_INGOT.get()), itemCriterion(ItemRegistry.BRONZE_INGOT.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEMORIAL_TABLET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEMORIAL_TABLET.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
                 .define('E', ItemRegistry.WOODEN_PARTS.get())
@@ -861,19 +861,19 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("EFE")
                 .unlockedBy("has_polished_plank", tagUnlock(ModItemTags.POLISHED_PLANKS))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BRONZE_CENSER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BRONZE_CENSER.get())
                 .define('I', ItemRegistry.BRONZE_INGOT.get())
                 .define('P', ItemRegistry.BRONZE_PARTS.get())
                 .pattern("PIP")
                 .pattern("III")
                 .unlockedBy(itemUnlockName(ItemRegistry.BRONZE_INGOT.get()), itemCriterion(ItemRegistry.BRONZE_INGOT.get()))
                 .save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.BRONZE_CENSER.get()), Ingredient.of(ModItemTags.FORGE_CYAN_DYE),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.BRONZE_CENSER.get()), Ingredient.of(ModItemTags.FORGE_CYAN_DYE),
                 ItemRegistry.ROYAL_CENSER.get(), 0.5f, 200)
                 .unlockedBy(itemUnlockName(ItemRegistry.BRONZE_CENSER.get()), itemCriterion(ItemRegistry.BRONZE_CENSER.get()))
                 .save(recipeConsumer);
         //todo PORCELAIN_TEAPOT
-        ShapedRecipeBuilder.shaped(ItemRegistry.BOOTS.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BOOTS.get())
                 .define('B', Items.LEATHER_BOOTS)
                 .define('S', ItemRegistry.SILK.get())
                 .define('D', ItemRegistry.BLACK_DYE_POWDER.get())
@@ -882,7 +882,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("SSS")
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.JADE_PENDANT.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.JADE_PENDANT.get())
                 .define('J', ItemRegistry.JADE.get())
                 .define('S', Items.STRING)
                 .define('R', ItemRegistry.RED_DYE_POWDER.get())
@@ -891,7 +891,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("R")
                 .unlockedBy(itemUnlockName(ItemRegistry.JADE.get()), itemCriterion(ItemRegistry.JADE.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.IMPERIAL_JADE_SEAL.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.IMPERIAL_JADE_SEAL.get())
                 .define('J', ItemRegistry.JADE.get())
                 .define('G', Items.ENCHANTED_GOLDEN_APPLE)
                 .define('P', ItemRegistry.GOLD_PARTS.get())
@@ -900,7 +900,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("JJ")
                 .unlockedBy(itemUnlockName(ItemRegistry.JADE.get()), itemCriterion(ItemRegistry.JADE.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LONG_PILLOW.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LONG_PILLOW.get())
                 .define('Y', Items.YELLOW_WOOL)
                 .define('R', Items.RED_WOOL)
                 .define('S', ItemRegistry.SILK.get())
@@ -918,7 +918,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // COURTYARD
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.SACK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SACK.get())
                 .define('T', Items.STRING)
                 .define('S', ItemRegistry.SILK.get())
                 .pattern(" T ")
@@ -926,7 +926,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
         // tea basket todo tea item
-        ShapedRecipeBuilder.shaped(ItemRegistry.STRAW_HAT.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.STRAW_HAT.get())
                 .define('W', Items.WHEAT)
                 .define('S', ItemRegistry.SILK.get())
                 .define('R', ItemRegistry.RED_DYE_POWDER.get())
@@ -934,7 +934,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("WWW")
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.KNIFE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.KNIFE.get())
                 .define('S', Items.IRON_SWORD)
                 .define('B', ItemRegistry.BRONZE_PARTS.get())
                 .pattern("S ")
@@ -942,7 +942,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.BRONZE_PARTS.get()), itemCriterion(ItemRegistry.BRONZE_PARTS.get()))
                 .save(recipeConsumer);
         // sundial sold by cleric todo time showing
-        ShapedRecipeBuilder.shaped(ItemRegistry.BROOM.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BROOM.get())
                 .define('S', Items.STICK)
                 .define('H', Items.HAY_BLOCK)
                 .pattern("S")
@@ -950,14 +950,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(Items.HAY_BLOCK), itemCriterion(Items.HAY_BLOCK))
                 .save(recipeConsumer);
         simpleStonecutting(ItemRegistry.PALE_YELLOW_STONE.get(), ItemRegistry.STONE_PEDESTAL.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.TERRACOTTA_POT.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TERRACOTTA_POT.get())
                 .define('T', Items.CYAN_TERRACOTTA)
                 .pattern("T T")
                 .pattern("TTT")
                 .unlockedBy(itemUnlockName(Items.CYAN_TERRACOTTA), itemCriterion(Items.CYAN_TERRACOTTA))
                 .save(recipeConsumer);
         // Chinese herbs bag sold by special trader
-        ShapedRecipeBuilder.shaped(ItemRegistry.FRUIT_BOX.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FRUIT_BOX.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
                 .define('A', Items.APPLE)
@@ -965,7 +965,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PFP")
                 .unlockedBy(itemUnlockName(Items.APPLE), itemCriterion(Items.APPLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.WOODEN_CRATE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WOODEN_CRATE.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
                 .pattern("PPP")
@@ -973,7 +973,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PPP")
                 .unlockedBy("has_polished_plank", tagUnlock(ModItemTags.POLISHED_PLANKS))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GUNNY_SACK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GUNNY_SACK.get())
                 .define('S', ItemRegistry.SILK.get())
                 .pattern("S S")
                 .pattern("S S")
@@ -982,14 +982,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(recipeConsumer);
         // bronze ding only from special loot
         // carriage from toolsmith
-        ShapedRecipeBuilder.shaped(ItemRegistry.WOODEN_POLES.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WOODEN_POLES.get())
                 .define('F', ItemTags.WOODEN_FENCES)
                 .pattern("F F")
                 .pattern("F F")
                 .pattern("F F")
                 .unlockedBy("has_fence", tagUnlock(ItemTags.WOODEN_FENCES))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.TEAHOUSE_FLAG.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TEAHOUSE_FLAG.get())
                 .define('F', ItemTags.WOODEN_FENCES)
                 .define('P', ItemRegistry.WOODEN_PARTS.get())
                 .define('B', ItemTags.BANNERS)
@@ -998,7 +998,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" F ")
                 .unlockedBy("has_banner", tagUnlock(ItemTags.BANNERS))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.KNIFE_REST.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.KNIFE_REST.get())
                 .define('F', ItemTags.WOODEN_FENCES)
                 .define('P', ItemTags.PLANKS)
                 .pattern("FFF")
@@ -1009,7 +1009,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // FOOD
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.FOOD_HAMPER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FOOD_HAMPER.get())
                 .define('C', Items.CHEST)
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
@@ -1027,7 +1027,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // CELEBRATIONS
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.COUPLET.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.COUPLET.get(), 2)
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .define('R', ItemRegistry.RED_DYE_POWDER.get())
                 .define('I', Items.INK_SAC)
@@ -1036,7 +1036,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PRP")
                 .unlockedBy(itemUnlockName(ItemRegistry.XUAN_PAPER.get()), itemCriterion(ItemRegistry.XUAN_PAPER.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.COUPLET_TOP.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.COUPLET_TOP.get())
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .define('R', ItemRegistry.RED_DYE_POWDER.get())
                 .define('I', Items.INK_SAC)
@@ -1044,7 +1044,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("RIR")
                 .unlockedBy(itemUnlockName(ItemRegistry.XUAN_PAPER.get()), itemCriterion(ItemRegistry.XUAN_PAPER.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.FU_MARK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.FU_MARK.get())
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .define('R', ItemRegistry.RED_DYE_POWDER.get())
                 .define('G', ItemRegistry.GOLD_DYE_POWDER.get())
@@ -1061,58 +1061,58 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // LOTUS
 
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.SMALL_LOTUS_LEAF.get(), 2).requires(Items.LILY_PAD).requires(Items.BIG_DRIPLEAF)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SMALL_LOTUS_LEAF.get(), 2).requires(Items.LILY_PAD).requires(Items.BIG_DRIPLEAF)
                 .unlockedBy(itemUnlockName(Items.BIG_DRIPLEAF), itemCriterion(Items.LILY_PAD, Items.BIG_DRIPLEAF)).save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.SMALL_DARK_GREEN_LOTUS_LEAF.get(), 1).requires(ItemRegistry.SMALL_LOTUS_LEAF.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.SMALL_DARK_GREEN_LOTUS_LEAF.get(), 1).requires(ItemRegistry.SMALL_LOTUS_LEAF.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.SMALL_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_LOTUS_LEAF.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_LOTUS_LEAF.get(), 1)
                 .define('L', ItemRegistry.SMALL_LOTUS_LEAF.get()).pattern("LL")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.SMALL_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_LOTUS_LEAF.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_LOTUS_LEAF.get(), 1)
                 .define('L', ItemRegistry.SMALL_LOTUS_LEAF.get()).pattern("LLL")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.SMALL_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.TILTED_LOTUS_LEAF.get(), 1).requires(ItemRegistry.LARGE_LOTUS_LEAF.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.TILTED_LOTUS_LEAF.get(), 1).requires(ItemRegistry.LARGE_LOTUS_LEAF.get())
                 .unlockedBy(itemUnlockName(ItemRegistry.LARGE_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.LARGE_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_LOTUS_LEAF_CLUSTER.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_LOTUS_LEAF_CLUSTER.get(), 2)
                 .define('L', ItemRegistry.SMALL_LOTUS_LEAF.get()).pattern("L ").pattern(" L")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.SMALL_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_LOTUS_LEAF_CLUSTER.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_LOTUS_LEAF_CLUSTER.get(), 2)
                 .define('L', ItemRegistry.MEDIUM_LOTUS_LEAF.get()).pattern("L ").pattern(" L")
                 .unlockedBy(itemUnlockName(ItemRegistry.MEDIUM_LOTUS_LEAF.get()), itemCriterion(ItemRegistry.MEDIUM_LOTUS_LEAF.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LOTUS_BUD.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LOTUS_BUD.get(), 1)
                 .define('L', Items.BIG_DRIPLEAF)
                 .define('F', Items.SPORE_BLOSSOM)
                 .pattern("F").pattern("L")
                 .unlockedBy(itemUnlockName(Items.SPORE_BLOSSOM), itemCriterion(Items.SPORE_BLOSSOM)).save(recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(ItemRegistry.MEDIUM_LOTUS.get(), 1).requires(ItemRegistry.LOTUS_BUD.get()).requires(Items.BONE_MEAL)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ItemRegistry.MEDIUM_LOTUS.get(), 1).requires(ItemRegistry.LOTUS_BUD.get()).requires(Items.BONE_MEAL)
                 .unlockedBy(itemUnlockName(ItemRegistry.LOTUS_BUD.get()), itemCriterion(ItemRegistry.LOTUS_BUD.get())).save(recipeConsumer);
 
         // IVY
 
         blockTransform(Items.VINE, ModItemTags.FORGE_RED_DYE, ItemRegistry.SMALL_RED_IVY.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_RED_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_RED_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_RED_IVY.get())
                 .pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_RED_IVY.get()), itemCriterion(ItemRegistry.SMALL_RED_IVY.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_RED_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_RED_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_RED_IVY.get())
                 .pattern("I").pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_RED_IVY.get()), itemCriterion(ItemRegistry.SMALL_RED_IVY.get())).save(recipeConsumer);
         blockTransform(Items.VINE, ModItemTags.FORGE_YELLOW_DYE, ItemRegistry.SMALL_YELLOW_IVY.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_YELLOW_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_YELLOW_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_YELLOW_IVY.get())
                 .pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_YELLOW_IVY.get()), itemCriterion(ItemRegistry.SMALL_YELLOW_IVY.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_YELLOW_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_YELLOW_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_YELLOW_IVY.get())
                 .pattern("I").pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_YELLOW_IVY.get()), itemCriterion(ItemRegistry.SMALL_YELLOW_IVY.get())).save(recipeConsumer);
         blockTransform(Items.VINE, ModItemTags.FORGE_GREEN_DYE, ItemRegistry.SMALL_GREEN_IVY.get(), recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_GREEN_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_GREEN_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_GREEN_IVY.get())
                 .pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_GREEN_IVY.get()), itemCriterion(ItemRegistry.SMALL_GREEN_IVY.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_GREEN_IVY.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_GREEN_IVY.get(), 1)
                 .define('I', ItemRegistry.SMALL_RED_IVY.get())
                 .pattern("I").pattern("I").pattern("I")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_GREEN_IVY.get()), itemCriterion(ItemRegistry.SMALL_GREEN_IVY.get())).save(recipeConsumer);
@@ -1133,7 +1133,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // CABINET
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.OAK_CABINET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.OAK_CABINET.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ItemRegistry.POLISHED_OAK_PLANK.get())
                 .define('C', Items.CHEST)
@@ -1143,7 +1143,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_OAK_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_OAK_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.WARPED_CABINET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WARPED_CABINET.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ItemRegistry.POLISHED_WARPED_PLANK.get())
                 .define('P', Items.WARPED_PLANKS)
@@ -1154,7 +1154,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_WARPED_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_WARPED_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.EBONY_CABINET.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.EBONY_CABINET.get())
                 .define('W', ItemRegistry.POLISHED_EBONY_PLANK.get())
                 .define('G', ItemRegistry.GOLD_PARTS.get())
                 .define('C', Items.CHEST)
@@ -1166,7 +1166,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // TABLE
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_TEA_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_TEA_TABLE.get())
                 .define('P', Items.SPRUCE_PLANKS)
                 .define('W', ItemRegistry.POLISHED_SPRUCE_PLANK.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
@@ -1177,7 +1177,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_SPRUCE_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_SPRUCE_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.CHESS_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHESS_TABLE.get())
                 .define('P', ItemTags.PLANKS)
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
@@ -1188,7 +1188,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.CHESSBOARD.get()), itemCriterion(ItemRegistry.CHESSBOARD.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.HIGH_TABLE_WITH_WHITE_TOP.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.HIGH_TABLE_WITH_WHITE_TOP.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('W', ItemRegistry.POLISHED_BIRCH_PLANK.get())
@@ -1198,7 +1198,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_BIRCH_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_BIRCH_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.CENSER_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CENSER_TABLE.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('W', ItemRegistry.POLISHED_SPRUCE_PLANK.get())
@@ -1209,7 +1209,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_SPRUCE_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_SPRUCE_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.PORCELAIN_INLAID_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PORCELAIN_INLAID_TABLE.get())
                 .define('P', ItemRegistry.PORCELAIN_PARTS.get())
                 .define('W', ItemRegistry.WOODEN_PARTS.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
@@ -1221,7 +1221,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_ROSEWOOD_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_ROSEWOOD_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_TABLE.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('W', ModItemTags.POLISHED_PLANKS)
@@ -1230,7 +1230,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_polished_plank", tagUnlock(ModItemTags.POLISHED_PLANKS))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_EBONY_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_EBONY_TABLE.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('W', ItemRegistry.POLISHED_EBONY_PLANK.get())
@@ -1239,7 +1239,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_EBONY_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_EBONY_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_TABLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_TABLE.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('P', ItemTags.PLANKS)
@@ -1251,7 +1251,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // CHAIR
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.EBONY_CHAIR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.EBONY_CHAIR.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('W', ItemRegistry.POLISHED_EBONY_PLANK.get())
@@ -1260,7 +1260,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_EBONY_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_EBONY_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.CHAIR_WITH_YELLOW_CUSHION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.CHAIR_WITH_YELLOW_CUSHION.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('S', Items.STICK)
                 .define('C', ItemRegistry.YELLOW_CUSHION.get())
@@ -1269,7 +1269,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.YELLOW_CUSHION.get()), itemCriterion(ItemRegistry.YELLOW_CUSHION.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.PAINTED_CHAIR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PAINTED_CHAIR.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ModItemTags.POLISHED_PLANKS)
                 .define('A', ItemRegistry.WOODEN_PARTS.get())
@@ -1282,7 +1282,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         woodworking(Ingredient.of(ItemTags.LOGS), ItemRegistry.WOODEN_STOOL.get(), 1).unlockedBy("has_log", tagUnlock(ItemTags.LOGS)).save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.PORCELAIN_INLAID_GRAND_CHAIR.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PORCELAIN_INLAID_GRAND_CHAIR.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ItemRegistry.POLISHED_ROSEWOOD_PLANK.get())
                 .define('A', ItemRegistry.WOODEN_PARTS.get())
@@ -1293,7 +1293,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.POLISHED_ROSEWOOD_PLANK.get()), itemCriterion(ItemRegistry.POLISHED_ROSEWOOD_PLANK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.YELLOW_CUSHION.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.YELLOW_CUSHION.get())
                 .define('W', Items.YELLOW_WOOL)
                 .define('S', ItemRegistry.SILK.get())
                 .pattern("SS")
@@ -1301,7 +1301,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.OAK_BED.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.OAK_BED.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ItemRegistry.POLISHED_OAK_PLANK.get())
                 .define('A', ItemRegistry.WOODEN_PARTS.get())
@@ -1313,7 +1313,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // SCREEN
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_LANDSCAPE_PAINTING_SCREEN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_LANDSCAPE_PAINTING_SCREEN.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ModItemTags.POLISHED_PLANKS)
                 .define('B', ItemTags.PLANKS)
@@ -1325,7 +1325,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_painting", tagUnlock(ModItemTags.PAINTING_SCROLL_ITEMS))
                 .save(recipeConsumer);
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.PAINTED_SCREEN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PAINTED_SCREEN.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('W', ItemRegistry.POLISHED_ROSEWOOD_PLANK.get())
                 .define('B', ItemRegistry.ROSEWOOD_PLANKS.get())
@@ -1342,14 +1342,14 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private static void categoryLamps(@NotNull Consumer<FinishedRecipe> recipeConsumer) {
 
-        ShapedRecipeBuilder.shaped(Items.WHITE_CANDLE, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Items.WHITE_CANDLE, 1)
                 .define('S', Items.STRING)
                 .define('G', ItemRegistry.GREASE.get())
                 .pattern("S")
                 .pattern("G")
                 .unlockedBy(itemUnlockName(ItemRegistry.GREASE.get()), itemCriterion(ItemRegistry.GREASE.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.OCTAGONAL_PALACE_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.OCTAGONAL_PALACE_LANTERN.get(), 1)
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('P', ModItemTags.POLISHED_PLANKS)
                 .define('C', ItemTags.CANDLES)
@@ -1358,7 +1358,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("FPF")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SQUARE_PALACE_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SQUARE_PALACE_LANTERN.get(), 1)
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
                 .define('C', ItemTags.CANDLES)
                 .pattern(" F ")
@@ -1366,7 +1366,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" F ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.STANDING_LAMP.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.STANDING_LAMP.get(), 1)
                 .define('X', ItemRegistry.XUAN_PAPER.get())
                 .define('C', ItemTags.CANDLES)
                 .define('W', ItemTags.PLANKS)
@@ -1377,7 +1377,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" W ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_STANDING_LAMP.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_STANDING_LAMP.get(), 1)
                 .define('X', ItemRegistry.XUAN_PAPER.get())
                 .define('C', ItemTags.CANDLES)
                 .define('W', Items.STICK)
@@ -1388,7 +1388,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" W ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.WHITE_SKY_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WHITE_SKY_LANTERN.get(), 1)
                 .define('X', ItemRegistry.XUAN_PAPER.get())
                 .define('C', ItemTags.CANDLES)
                 .define('D', Items.WHITE_DYE)
@@ -1398,7 +1398,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" F ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.YELLOW_SKY_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.YELLOW_SKY_LANTERN.get(), 1)
                 .define('X', ItemRegistry.XUAN_PAPER.get())
                 .define('C', ItemTags.CANDLES)
                 .define('D', Items.YELLOW_DYE)
@@ -1408,7 +1408,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" F ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_SKY_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_SKY_LANTERN.get(), 1)
                 .define('X', ItemRegistry.XUAN_PAPER.get())
                 .define('C', ItemTags.CANDLES)
                 .define('D', Items.RED_DYE)
@@ -1418,7 +1418,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" F ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_RED_LANTERN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_RED_LANTERN.get(), 1)
                 .define('S', Items.STICK)
                 .define('C', ItemTags.CANDLES)
                 .define('D', Items.RED_DYE)
@@ -1428,7 +1428,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("DPD")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.STONE_LAMP.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.STONE_LAMP.get(), 1)
                 .define('S', Items.STONE)
                 .define('C', ItemTags.CANDLES)
                 .define('W', Items.COBBLESTONE_WALL)
@@ -1438,28 +1438,28 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" S ")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_CANDLE.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_CANDLE.get(), 1)
                 .define('C', Items.RED_CANDLE)
                 .define('P', ItemRegistry.WOODEN_PARTS.get())
                 .pattern("C")
                 .pattern("P")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.TRICOLOR_CANDLESTICK.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TRICOLOR_CANDLESTICK.get(), 1)
                 .define('C', Items.WHITE_CANDLE)
                 .define('P', ItemRegistry.PORCELAIN_PARTS.get())
                 .pattern("C")
                 .pattern("P")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.JADE_CANDLESTICK.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.JADE_CANDLESTICK.get(), 1)
                 .define('C', Items.WHITE_CANDLE)
                 .define('P', ItemRegistry.JADE_PARTS.get())
                 .pattern("C")
                 .pattern("P")
                 .unlockedBy(itemUnlockName(Items.CANDLE), itemCriterion(Items.CANDLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_LANTERN_STREETLIGHT.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_LANTERN_STREETLIGHT.get())
                 .define('L', ItemTags.LOGS)
                 .define('P', ItemTags.PLANKS)
                 .define('R', ItemRegistry.SMALL_RED_LANTERN.get())
@@ -1468,14 +1468,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("L ")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_RED_LANTERN.get()), itemCriterion(ItemRegistry.SMALL_RED_LANTERN.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.HANGING_RED_LANTERN_STREETLIGHT.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.HANGING_RED_LANTERN_STREETLIGHT.get())
                 .define('P', ItemTags.PLANKS)
                 .define('R', ItemRegistry.SMALL_RED_LANTERN.get())
                 .pattern("PPP")
                 .pattern(" R ")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_RED_LANTERN.get()), itemCriterion(ItemRegistry.SMALL_RED_LANTERN.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.STREETLIGHT_POLE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.STREETLIGHT_POLE.get())
                 .define('L', ItemTags.LOGS)
                 .define('P', ItemTags.PLANKS)
                 .pattern("P")
@@ -1498,12 +1498,12 @@ public class ModRecipeProvider extends RecipeProvider {
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.SONG_WOODEN_WINDOW.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
         woodworking(Ingredient.of(ItemRegistry.ROSEWOOD_PLANKS.get()), ItemRegistry.ROYAL_ROSEWOOD_WINDOW.get(), 1)
                 .unlockedBy(itemUnlockName(ItemRegistry.ROSEWOOD_PLANKS.get()), itemCriterion(ItemRegistry.ROSEWOOD_PLANKS.get())).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.TALL_ROYAL_ROSEWOOD_WINDOW.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.TALL_ROYAL_ROSEWOOD_WINDOW.get(), 1)
                 .define('W', ItemRegistry.ROYAL_ROSEWOOD_WINDOW.get())
                 .pattern("W").pattern("W")
                 .unlockedBy(itemUnlockName(ItemRegistry.ROYAL_ROSEWOOD_WINDOW.get()), itemCriterion(ItemRegistry.ROYAL_ROSEWOOD_WINDOW.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.GLAZED_TILE_GRID_WINDOW.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.GLAZED_TILE_GRID_WINDOW.get())
                 .define('G', ItemRegistry.GREEN_GLAZED_TILES.get())
                 .define('I', Items.IRON_BARS)
                 .pattern("GGG")
@@ -1515,7 +1515,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // DOOR DECO
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.KNOCKER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.KNOCKER.get())
                 .define('I', ItemRegistry.BRONZE_INGOT.get())
                 .define('P', ItemRegistry.BRONZE_PARTS.get())
                 .pattern("IP")
@@ -1530,7 +1530,7 @@ public class ModRecipeProvider extends RecipeProvider {
         woodworking(Ingredient.of(ItemRegistry.ROSEWOOD_PLANKS.get()), ItemRegistry.LARGE_ROSEWOOD_PANEL_EDGE.get(), 1)
                 .unlockedBy(itemUnlockName(ItemRegistry.ROSEWOOD_PLANKS.get()), itemCriterion(ItemRegistry.ROSEWOOD_PLANKS.get())).save(recipeConsumer);
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.CARVED_WOODEN_DOOR_PANEL.get(), 1).unlockedBy("has_plank", tagUnlock(ItemTags.PLANKS)).save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.PLAQUE.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PLAQUE.get())
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .define('W', ItemRegistry.WOODEN_PARTS.get())
                 .define('F', ItemRegistry.WOODEN_FRAME.get())
@@ -1541,7 +1541,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("PIP")
                 .unlockedBy(itemUnlockName(ItemRegistry.XUAN_PAPER.get()), itemCriterion(ItemRegistry.XUAN_PAPER.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.PAPER_STRIP_SEAL.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.PAPER_STRIP_SEAL.get(), 2)
                 .define('P', ItemRegistry.XUAN_PAPER.get())
                 .define('I', Items.INK_SAC)
                 .pattern("P P")
@@ -1552,24 +1552,24 @@ public class ModRecipeProvider extends RecipeProvider {
 
         // WINDOW DECO
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.SMALL_BLUE_CURTAIN.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.SMALL_BLUE_CURTAIN.get(), 2)
                 .define('S', ItemRegistry.SILK.get())
                 .define('D', ItemRegistry.BLUE_DYE_POWDER.get())
                 .pattern("SSS")
                 .pattern("DDD")
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.MEDIUM_BLUE_CURTAIN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.MEDIUM_BLUE_CURTAIN.get(), 1)
                 .define('C', ItemRegistry.SMALL_BLUE_CURTAIN.get())
                 .pattern("CC")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_BLUE_CURTAIN.get()), itemCriterion(ItemRegistry.SMALL_BLUE_CURTAIN.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.LARGE_BLUE_CURTAIN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.LARGE_BLUE_CURTAIN.get(), 1)
                 .define('C', ItemRegistry.SMALL_BLUE_CURTAIN.get())
                 .pattern("CCC")
                 .unlockedBy(itemUnlockName(ItemRegistry.SMALL_BLUE_CURTAIN.get()), itemCriterion(ItemRegistry.SMALL_BLUE_CURTAIN.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_CURTAIN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_CURTAIN.get())
                 .define('S', ItemRegistry.SILK.get())
                 .define('D', ItemRegistry.RED_DYE_POWDER.get())
                 .define('G', ItemRegistry.GOLD_PARTS.get())
@@ -1578,13 +1578,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" G ")
                 .unlockedBy(itemUnlockName(ItemRegistry.SILK.get()), itemCriterion(ItemRegistry.SILK.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.RED_CURTAIN_CORNER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.RED_CURTAIN_CORNER.get())
                 .define('C', ItemRegistry.RED_CURTAIN.get())
                 .pattern("C ")
                 .pattern(" C")
                 .unlockedBy(itemUnlockName(ItemRegistry.RED_CURTAIN.get()), itemCriterion(ItemRegistry.RED_CURTAIN.get()))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BAMBOO_CURTAIN.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BAMBOO_CURTAIN.get())
                 .define('B', Items.BAMBOO)
                 .define('S', Items.STRING)
                 .pattern("BBB")
@@ -1605,7 +1605,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         //BRICK MATERIAL
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.UNFIRED_CLAY_BRICK.get(), 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.UNFIRED_CLAY_BRICK.get(), 3)
                 .define('C', Items.CLAY_BALL).pattern("CCC")
                 .unlockedBy(itemUnlockName(Items.CLAY_BALL), itemCriterion(Items.CLAY_BALL))
                 .save(recipeConsumer);
@@ -1613,7 +1613,7 @@ public class ModRecipeProvider extends RecipeProvider {
         brickMixture(ItemRegistry.UNFIRED_CLAY_BRICK.get(), 6, ItemRegistry.HEMATITE_DUST.get(), ItemRegistry.UNFIRED_BLACK_BRICK.get(), recipeConsumer);
         brickMixture(ItemRegistry.UNFIRED_CLAY_BRICK.get(), 6, ItemRegistry.MAGNESITE_DUST.get(), ItemRegistry.UNFIRED_RAW_BROWNISH_RED_STONE_BRICK.get(), recipeConsumer);
         smeltingAndBlasting(ItemRegistry.UNFIRED_CLAY_BRICK.get(), ItemRegistry.FIRED_BRICK.get(), recipeConsumer);
-        ShapelessRecipeBuilder.shapeless(Items.BRICK, 1).requires(ItemRegistry.FIRED_BRICK.get())
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BRICK, 1).requires(ItemRegistry.FIRED_BRICK.get())
                 .unlockedBy("has_" + ItemRegistry.FIRED_BRICK.get(), InventoryChangeTrigger.TriggerInstance.hasItems(ItemRegistry.FIRED_BRICK.get())).save(recipeConsumer);
 
         //DUST
@@ -1625,26 +1625,26 @@ public class ModRecipeProvider extends RecipeProvider {
 
         //ROOF TILE
 
-        ShapedRecipeBuilder.shaped(ItemRegistry.UNFIRED_ROOF_TILE.get(), 2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.UNFIRED_ROOF_TILE.get(), 2)
                 .define('C', Items.CLAY_BALL).pattern("C ").pattern(" C")
                 .unlockedBy(itemUnlockName(Items.CLAY_BALL), itemCriterion(Items.CLAY_BALL))
                 .save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.GRAY_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.GRAY_DYE_POWDER.get()),
                         ItemRegistry.GRAY_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.YELLOW_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.YELLOW_DYE_POWDER.get()),
                         ItemRegistry.YELLOW_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.GREEN_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.GREEN_DYE_POWDER.get()),
                         ItemRegistry.GREEN_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.BLUE_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.BLUE_DYE_POWDER.get()),
                         ItemRegistry.BLUE_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.CYAN_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.CYAN_DYE_POWDER.get()),
                         ItemRegistry.CYAN_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
-        CompositeSmeltingRecipeBuilder.compositeSmelting(Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.BLACK_DYE_POWDER.get()),
+        CompositeSmeltingRecipeBuilder.compositeSmelting(RecipeCategory.MISC, Ingredient.of(ItemRegistry.UNFIRED_ROOF_TILE.get()), Ingredient.of(ItemRegistry.BLACK_DYE_POWDER.get()),
                         ItemRegistry.BLACK_ROOF_TILE.get(), 0.05f, 20)
                 .unlockedBy(itemUnlockName(ItemRegistry.UNFIRED_ROOF_TILE.get()), itemCriterion(ItemRegistry.UNFIRED_ROOF_TILE.get())).save(recipeConsumer);
 
@@ -1667,14 +1667,14 @@ public class ModRecipeProvider extends RecipeProvider {
         // PARTS
 
         woodworking(Ingredient.of(ItemTags.PLANKS), ItemRegistry.WOODEN_PARTS.get(), 2, Items.OAK_PLANKS, recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.GOLD_INGOT), ItemRegistry.GOLD_PARTS.get(), 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(Items.GOLD_INGOT), RecipeCategory.MISC, ItemRegistry.GOLD_PARTS.get(), 2)
                 .unlockedBy(itemUnlockName(Items.GOLD_INGOT), itemCriterion(Items.GOLD_INGOT))
                 .save(recipeConsumer);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.JADE.get()), ItemRegistry.JADE_PARTS.get(), 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.JADE.get()), RecipeCategory.MISC, ItemRegistry.JADE_PARTS.get(), 2)
                 .unlockedBy(itemUnlockName(ItemRegistry.JADE.get()), itemCriterion(ItemRegistry.JADE.get()))
                 .save(recipeConsumer);
         simpleStonecutting(ItemRegistry.BLUE_AND_WHITE_PORCELAIN_PIECE.get(), ItemRegistry.PORCELAIN_PARTS.get(), recipeConsumer); //todo add porcelain variants
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.BRONZE_INGOT.get()), ItemRegistry.BRONZE_PARTS.get(), 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ItemRegistry.BRONZE_INGOT.get()), RecipeCategory.MISC, ItemRegistry.BRONZE_PARTS.get(), 2)
                 .unlockedBy(itemUnlockName(ItemRegistry.BRONZE_INGOT.get()), itemCriterion(ItemRegistry.BRONZE_INGOT.get()))
                 .save(recipeConsumer);
 
@@ -1717,7 +1717,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static void categoryTools(@NotNull Consumer<FinishedRecipe> recipeConsumer) {
-        ShapedRecipeBuilder.shaped(ItemRegistry.WOODEN_MALLET.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WOODEN_MALLET.get(), 1)
                 .define('S', ItemTags.WOODEN_FENCES)
                 .define('W', ItemTags.PLANKS)
                 .pattern("WWW")
@@ -1725,14 +1725,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" S ")
                 .unlockedBy("has_fence", tagUnlock(ItemTags.FENCES))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.WOODWORKING_WORKBENCH.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.WOODWORKING_WORKBENCH.get(), 1)
                 .define('P', ItemTags.PLANKS)
                 .define('C', Items.CRAFTING_TABLE)
                 .pattern("P")
                 .pattern("C")
                 .unlockedBy(itemUnlockName(Items.CRAFTING_TABLE), itemCriterion(Items.CRAFTING_TABLE))
                 .save(recipeConsumer);
-        ShapedRecipeBuilder.shaped(ItemRegistry.BRICK_KILN.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemRegistry.BRICK_KILN.get(), 1)
                 .define('B', ItemRegistry.CYAN_BRICK.get())
                 .define('F', Items.FURNACE)
                 .pattern("BBB")
@@ -1754,44 +1754,42 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @SuppressWarnings("null")
     private static void quadComposeRecipe(Item part, Item combined, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        assert part.getRegistryName() != null;
-        ShapedRecipeBuilder.shaped(combined, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, combined, 1)
                 .define('A', part)
                 .pattern("AA")
                 .pattern("AA")
-                .unlockedBy("has_" + part.getRegistryName().getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(part))
+                .unlockedBy("has_" + name(part), InventoryChangeTrigger.TriggerInstance.hasItems(part))
                 .save(pFinishedRecipeConsumer);
     }
 
     private static void quadDecomposeRecipe(Item part, Item combined, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        assert combined.getRegistryName() != null;
-        ShapelessRecipeBuilder.shapeless(part, 4).requires(combined)
-                .unlockedBy("has_" + combined.getRegistryName().getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(combined))
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, part, 4).requires(combined)
+                .unlockedBy("has_" + name(combined), InventoryChangeTrigger.TriggerInstance.hasItems(combined))
                 .save(pFinishedRecipeConsumer);
     }
 
     private static void stonePolishing(Item raw, Item polished, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String rawPath = Objects.requireNonNull(raw.getRegistryName()).getPath();
-        String polishedPath = Objects.requireNonNull(polished.getRegistryName()).getPath();
-        ShapedRecipeBuilder.shaped(polished, 4)
+        String rawPath = name(raw);
+        String polishedPath = name(polished);
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, polished, 4)
                 .define('A', raw)
                 .pattern("AA")
                 .pattern("AA")
                 .unlockedBy("has_" + rawPath, InventoryChangeTrigger.TriggerInstance.hasItems(raw))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, polishedPath + "_from_crafting"));
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(raw), polished)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(raw), RecipeCategory.MISC, polished)
                 .unlockedBy("has_" + rawPath, InventoryChangeTrigger.TriggerInstance.hasItems(raw))
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, polishedPath + "_from_stonecutting"));
     }
 
     private static void blockTransform(Item block, TagKey<Item> dye, Item output, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
-        String outputPath = Objects.requireNonNull(output.getRegistryName()).getPath();
-        ShapelessRecipeBuilder.shapeless(output).requires(block).requires(dye)
+        String blockPath = name(block);
+        String outputPath = name(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output).requires(block).requires(dye)
                 .unlockedBy("has_" + blockPath, InventoryChangeTrigger.TriggerInstance.hasItems(block))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, outputPath));
-        ShapedRecipeBuilder.shaped(output, 8)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 8)
                 .define('B', block)
                 .define('D', dye)
                 .pattern("BBB")
@@ -1802,12 +1800,12 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static void blockTransform(Item block, ItemLike dye, Item output, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String blockPath = Objects.requireNonNull(block.getRegistryName()).getPath();
-        String outputPath = Objects.requireNonNull(output.getRegistryName()).getPath();
-        ShapelessRecipeBuilder.shapeless(output).requires(block).requires(dye)
+        String blockPath = name(block);
+        String outputPath = name(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output).requires(block).requires(dye)
                 .unlockedBy("has_" + blockPath, InventoryChangeTrigger.TriggerInstance.hasItems(block))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, outputPath));
-        ShapedRecipeBuilder.shaped(output, 8)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output, 8)
                 .define('B', block)
                 .define('D', dye)
                 .pattern("BBB")
@@ -1818,16 +1816,16 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static void dust(Item input, Item output, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), RecipeCategory.MISC, output)
                 .unlockedBy("has_" + name(input), InventoryChangeTrigger.TriggerInstance.hasItems(input))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, name(output)));
     }
 
     private static void brickMixture(Item brick, int brickAmount, Item additive, Item output, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String brickPath = Objects.requireNonNull(brick.getRegistryName()).getPath();
-        String additivePath = Objects.requireNonNull(additive.getRegistryName()).getPath();
-        String outputPath = Objects.requireNonNull(output.getRegistryName()).getPath();
-        ShapelessRecipeBuilder.shapeless(output, brickAmount).requires(brick, brickAmount).requires(additive)
+        String brickPath = name(brick);
+        String additivePath = name(additive);
+        String outputPath = name(output);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output, brickAmount).requires(brick, brickAmount).requires(additive)
                 .unlockedBy("has_" + brickPath, InventoryChangeTrigger.TriggerInstance.hasItems(brick))
                 .save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, outputPath));
     }
@@ -1837,20 +1835,20 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static void smeltingAndBlasting(Item input, Item output, float exp, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), output, exp, 200)
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.MISC, output, exp, 200)
                 .unlockedBy(itemUnlockName(input), itemCriterion(input)).save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, name(output) + "_from_smelting"));
-        SimpleCookingRecipeBuilder.blasting(Ingredient.of(input), output, exp/2, 100)
+        SimpleCookingRecipeBuilder.blasting(Ingredient.of(input), RecipeCategory.MISC, output, exp/2, 100)
                 .unlockedBy(itemUnlockName(input), itemCriterion(input)).save(pFinishedRecipeConsumer, new ResourceLocation(DataGenerators.MOD_ID, name(output) + "_from_blasting"));
     }
 
     private static void stoneSlabAndStairsRecipe(Item baseBlock, Item slabBlock, Item stairBlock, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String baseBlockPath = Objects.requireNonNull(baseBlock.getRegistryName()).getPath();
-        String stairsBlockPath = Objects.requireNonNull(stairBlock.getRegistryName()).getPath();
-        String slabBlockPath = Objects.requireNonNull(slabBlock.getRegistryName()).getPath();
+        String baseBlockPath = name(baseBlock);
+        String stairsBlockPath = name(stairBlock);
+        String slabBlockPath = name(slabBlock);
         String baseBlockAdvancement = "has_" + baseBlockPath;
         InventoryChangeTrigger.TriggerInstance trigger = InventoryChangeTrigger.TriggerInstance.hasItems(baseBlock);
 
-        ShapedRecipeBuilder.shaped(stairBlock, 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, stairBlock, 4)
                 .define('B', baseBlock)
                 .pattern("B  ")
                 .pattern("BB ")
@@ -1858,36 +1856,36 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, stairsBlockPath + "_from_crafting"));
-        ShapedRecipeBuilder.shaped(slabBlock, 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, slabBlock, 6)
                 .define('B', baseBlock)
                 .pattern("BBB")
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, slabBlockPath + "_from_crafting"));
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), stairBlock)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), RecipeCategory.MISC, stairBlock)
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, stairsBlockPath + "_from_stonecutting"));
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), slabBlock, 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), RecipeCategory.MISC, slabBlock, 2)
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, slabBlockPath + "_from_stonecutting"));
     }
 
     private static void simpleStonecutting(Item input, Item output, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), output)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(input), RecipeCategory.MISC, output)
                 .unlockedBy(itemUnlockName(input), itemCriterion(output))
                 .save(pFinishedRecipeConsumer);
     }
 
     private static void woodSlabAndStairsRecipe(Item baseBlock, Item slabBlock, Item stairBlock, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String baseBlockPath = Objects.requireNonNull(baseBlock.getRegistryName()).getPath();
-        String stairsBlockPath = Objects.requireNonNull(stairBlock.getRegistryName()).getPath();
-        String slabBlockPath = Objects.requireNonNull(slabBlock.getRegistryName()).getPath();
+        String baseBlockPath = name(baseBlock);
+        String stairsBlockPath = name(stairBlock);
+        String slabBlockPath = name(slabBlock);
         String baseBlockAdvancement = "has_" + baseBlockPath;
         InventoryChangeTrigger.TriggerInstance trigger = InventoryChangeTrigger.TriggerInstance.hasItems(baseBlock);
 
-        ShapedRecipeBuilder.shaped(stairBlock, 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, stairBlock, 4)
                 .define('B', baseBlock)
                 .pattern("B  ")
                 .pattern("BB ")
@@ -1895,7 +1893,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID, stairsBlockPath + "_from_crafting"));
-        ShapedRecipeBuilder.shaped(slabBlock, 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, slabBlock, 6)
                 .define('B', baseBlock)
                 .pattern("BBB")
                 .unlockedBy(baseBlockAdvancement, trigger)
@@ -1913,29 +1911,29 @@ public class ModRecipeProvider extends RecipeProvider {
 
 
     private static void wallRecipe(Item baseBlock, Item wallBlock, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String baseBlockPath = Objects.requireNonNull(baseBlock.getRegistryName()).getPath();
-        String wallBlockPath = Objects.requireNonNull(wallBlock.getRegistryName()).getPath();
+        String baseBlockPath = name(baseBlock);
+        String wallBlockPath = name(wallBlock);
         String baseBlockAdvancement = "has_" + baseBlockPath;
         InventoryChangeTrigger.TriggerInstance trigger = InventoryChangeTrigger.TriggerInstance.hasItems(baseBlock);
-        ShapedRecipeBuilder.shaped(wallBlock, 6)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, wallBlock, 6)
                 .define('B', baseBlock)
                 .pattern("BBB")
                 .pattern("BBB")
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID,wallBlockPath + "_from_crafting"));
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), wallBlock)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(baseBlock), RecipeCategory.MISC, wallBlock)
                 .unlockedBy(baseBlockAdvancement, trigger)
                 .save(pFinishedRecipeConsumer,
                         new ResourceLocation(DataGenerators.MOD_ID,wallBlockPath + "_from_stonecutting"));
     }
 
     private static void fenceRecipe(Item baseBlock, Item fenceBlock, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        String baseBlockPath = Objects.requireNonNull(baseBlock.getRegistryName()).getPath();
-        String fenceBlockPath = Objects.requireNonNull(fenceBlock.getRegistryName()).getPath();
+        String baseBlockPath = name(baseBlock);
+        String fenceBlockPath = name(fenceBlock);
         String baseBlockAdvancement = "has_" + baseBlockPath;
         InventoryChangeTrigger.TriggerInstance trigger = InventoryChangeTrigger.TriggerInstance.hasItems(baseBlock);
-        ShapedRecipeBuilder.shaped(fenceBlock, 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fenceBlock, 3)
                 .define('B', baseBlock)
                 .define('S', Items.STICK)
                 .pattern("BSB")
@@ -1963,7 +1961,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         tileBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_tiles"));
         assert (tileBlock != null);
-        ShapedRecipeBuilder.shaped(tileBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, tileBlock, 1)
                 .define('T', tileItem)
                 .pattern("TTT")
                 .unlockedBy("has_" + color + "_roof_tile", InventoryChangeTrigger.TriggerInstance.hasItems(tileItem))
@@ -1971,7 +1969,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         tileBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_tile_stairs"));
         assert (tileBlock != null);
-        ShapedRecipeBuilder.shaped(tileBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, tileBlock, 1)
                 .define('T', tileItem)
                 .pattern("T  ")
                 .pattern("TT ")
@@ -1981,7 +1979,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         tileBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_tile_edge"));
         assert (tileBlock != null);
-        ShapedRecipeBuilder.shaped(tileBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, tileBlock, 1)
                 .define('T', tileItem)
                 .pattern("T  ")
                 .pattern("TTT")
@@ -1997,7 +1995,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ridgeBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_ridge_upper"));
         assert (ridgeBlock != null);
-        ShapedRecipeBuilder.shaped(ridgeBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ridgeBlock, 1)
                 .define('T', tileItem)
                 .pattern("TTT")
                 .pattern("T T")
@@ -2006,13 +2004,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
         Item ridgeSlabBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_ridge_upper_slab"));
         assert (ridgeSlabBlock != null);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeBlock), ridgeSlabBlock, 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeBlock), RecipeCategory.MISC, ridgeSlabBlock, 2)
                 .unlockedBy(itemUnlockName(ridgeBlock), itemCriterion(ridgeBlock))
                 .save(pFinishedRecipeConsumer);
 
         ridgeBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_ridge_lower"));
         assert (ridgeBlock != null);
-        ShapedRecipeBuilder.shaped(ridgeBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ridgeBlock, 1)
                 .define('T', tileItem)
                 .pattern("T T")
                 .pattern("TTT")
@@ -2021,7 +2019,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ridgeBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_roof_ridge_connection"));
         assert (ridgeBlock != null);
-        ShapedRecipeBuilder.shaped(ridgeBlock, 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ridgeBlock, 1)
                 .define('T', tileItem)
                 .pattern("TTT")
                 .pattern("TTT")
@@ -2030,7 +2028,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         Item ridgeMainBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_main_roof_ridge_connection"));
         assert (ridgeMainBlock != null);
-        ShapedRecipeBuilder.shaped(ridgeMainBlock, 3)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ridgeMainBlock, 3)
                 .define('R', ridgeBlock)
                 .define('T', tileItem)
                 .pattern("TTT")
@@ -2046,20 +2044,20 @@ public class ModRecipeProvider extends RecipeProvider {
 
         Item ridgeMainPanelBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_main_roof_ridge_panel"));
         assert (ridgeMainPanelBlock != null);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeMainSlabBlock), ridgeMainPanelBlock, 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeMainSlabBlock), RecipeCategory.MISC, ridgeMainPanelBlock, 2)
                 .unlockedBy(itemUnlockName(ridgeMainSlabBlock), itemCriterion(ridgeMainSlabBlock))
                 .save(pFinishedRecipeConsumer);
 
         Item ridgeMainPlateBlock = ITEMS.getValue(new ResourceLocation(DataGenerators.MOD_ID, color + "_main_roof_ridge_plate"));
         assert (ridgeMainPlateBlock != null);
-        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeMainPanelBlock), ridgeMainPlateBlock, 2)
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(ridgeMainPanelBlock), RecipeCategory.MISC, ridgeMainPlateBlock, 2)
                 .unlockedBy(itemUnlockName(ridgeMainPanelBlock), itemCriterion(ridgeMainPanelBlock))
                 .save(pFinishedRecipeConsumer);
 
     }
 
     public static void dyePowder(TagKey<Item> dye, ItemLike powder, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ShapelessRecipeBuilder.shapeless(powder, 4).requires(dye).unlockedBy("has_dye", InventoryChangeTrigger.TriggerInstance.hasItems(
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, powder, 4).requires(dye).unlockedBy("has_dye", InventoryChangeTrigger.TriggerInstance.hasItems(
                 new ItemPredicate(dye, ImmutableSet.of(),
                         MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY,
                         EnchantmentPredicate.NONE, EnchantmentPredicate.NONE, null, NbtPredicate.ANY)))
@@ -2067,82 +2065,82 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public static SingleItemRecipeBuilder woodworking(Ingredient pIngredient, ItemLike pResult) {
-        return new SingleItemRecipeBuilder(RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), pIngredient, pResult, 1);
+        return new SingleItemRecipeBuilder(RecipeCategory.MISC, RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), pIngredient, pResult, 1);
     }
 
     public static SingleItemRecipeBuilder woodworking(Ingredient pIngredient, ItemLike pResult, int pCount) {
-        return new SingleItemRecipeBuilder(RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), pIngredient, pResult, pCount);
+        return new SingleItemRecipeBuilder(RecipeCategory.MISC, RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), pIngredient, pResult, pCount);
     }
 
     public static void woodworking(Item input, ItemLike pResult, int pCount, Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
-            var recipe = new SingleItemRecipeBuilder(RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), Ingredient.of(input), pResult, pCount);
+            var recipe = new SingleItemRecipeBuilder(RecipeCategory.MISC, RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), Ingredient.of(input), pResult, pCount);
             recipe.unlockedBy(itemUnlockName(input), itemCriterion(input))
                 .save(pFinishedRecipeConsumer);
     }
 
     public static void woodworking(Ingredient ingredient, ItemLike pResult, int pCount, Item unlockItem, Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
-        var recipe = new SingleItemRecipeBuilder(RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), ingredient, pResult, pCount);
+        var recipe = new SingleItemRecipeBuilder(RecipeCategory.MISC, RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get(), ingredient, pResult, pCount);
         recipe.unlockedBy(itemUnlockName(unlockItem), itemCriterion(unlockItem))
                 .save(pFinishedRecipeConsumer);
     }
 
     public static void carvedWood(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.CARVED_WOOD_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.CARVED_WOOD_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.CARVED_WOOD_TEMPLATE.get()), itemCriterion(ItemRegistry.CARVED_WOOD_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void fangxinWood(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.FANGXIN_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.FANGXIN_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.FANGXIN_TEMPLATE.get()), itemCriterion(ItemRegistry.FANGXIN_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void fangxinEdgeWood(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), itemCriterion(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void zhaotouWood(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.ZHAOTOU_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.ZHAOTOU_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.ZHAOTOU_TEMPLATE.get()), itemCriterion(ItemRegistry.ZHAOTOU_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void gutouWood(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.GUTOU_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.GUTOU_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.GUTOU_TEMPLATE.get()), itemCriterion(ItemRegistry.GUTOU_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void rafter(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.RAFTER_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.RAFTER_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.RAFTER_TEMPLATE.get()), itemCriterion(ItemRegistry.RAFTER_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void rafterEnd(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.RAFTER_END_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.RAFTER_END_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.RAFTER_END_TEMPLATE.get()), itemCriterion(ItemRegistry.RAFTER_END_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void architrave(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.ARCHITRAVE_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ItemTags.LOGS), Ingredient.of(ItemRegistry.ARCHITRAVE_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.ARCHITRAVE_TEMPLATE.get()), itemCriterion(ItemRegistry.ARCHITRAVE_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void caihua(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.CAIHUA_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.CAIHUA_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.CAIHUA_TEMPLATE.get()), itemCriterion(ItemRegistry.CAIHUA_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void fangxinPattern(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.FANGXIN_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.FANGXIN_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.FANGXIN_TEMPLATE.get()), itemCriterion(ItemRegistry.FANGXIN_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void fangxinEdgePattern(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get()), itemCriterion(ItemRegistry.FANGXIN_EDGE_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
     public static void zhaotouPattern(Item result, Ingredient[] dye, Consumer<FinishedRecipe> pFinishedRecipeConsumer){
-        ChiselTableRecipeBuilder.chiselTableRecipe(Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.ZHAOTOU_TEMPLATE.get()), dye, result)
+        ChiselTableRecipeBuilder.chiselTableRecipe(RecipeCategory.MISC, Ingredient.of(ModItemTags.POLISHED_PLANKS), Ingredient.of(ItemRegistry.ZHAOTOU_TEMPLATE.get()), dye, result)
                 .unlockedBy(itemUnlockName(ItemRegistry.ZHAOTOU_TEMPLATE.get()), itemCriterion(ItemRegistry.ZHAOTOU_TEMPLATE.get())).save(pFinishedRecipeConsumer);
     }
 
@@ -2154,8 +2152,9 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private static String name(Item item){
-        return Objects.requireNonNull(item.getRegistryName()).getPath();
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item)).getPath();
     }
+
 
 
 }

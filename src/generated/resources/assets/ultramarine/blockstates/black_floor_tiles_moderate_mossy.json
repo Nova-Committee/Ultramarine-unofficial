@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "ultramarine:block/black_floor_tiles_moderate_mossy",
-      "y": 270
-    },
     "facing=north": {
       "model": "ultramarine:block/black_floor_tiles_moderate_mossy",
       "y": 180
@@ -14,6 +10,10 @@
     "facing=west": {
       "model": "ultramarine:block/black_floor_tiles_moderate_mossy",
       "y": 90
+    },
+    "facing=east": {
+      "model": "ultramarine:block/black_floor_tiles_moderate_mossy",
+      "y": 270
     }
   }
 }

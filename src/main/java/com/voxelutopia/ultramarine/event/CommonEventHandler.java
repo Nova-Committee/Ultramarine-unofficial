@@ -5,12 +5,9 @@ import com.voxelutopia.ultramarine.data.ModBlockTags;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import com.voxelutopia.ultramarine.data.registry.ItemRegistry;
 import com.voxelutopia.ultramarine.data.registry.VillagerProfessionRegistry;
-import com.voxelutopia.ultramarine.world.block.ChiselTableMedium;
 import com.voxelutopia.ultramarine.world.block.DecorativeBlock;
 import com.voxelutopia.ultramarine.world.block.SnowRoofRidge;
-import com.voxelutopia.ultramarine.world.feature.ModPlacedFeatures;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -22,16 +19,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.slf4j.Logger;
@@ -316,15 +309,4 @@ public class CommonEventHandler {
 
     }
 
-    @SubscribeEvent
-    public static void oreGeneration(BiomeLoadingEvent event) {
-
-        List<Holder<PlacedFeature>> undergroundOres = event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES);
-
-        undergroundOres.add(ModPlacedFeatures.JADE_ORE_PLACED_FEATURE);
-        undergroundOres.add(ModPlacedFeatures.MAGNESITE_ORE_PLACED_FEATURE);
-        undergroundOres.add(ModPlacedFeatures.HEMATITE_ORE_PLACED_FEATURE);
-        undergroundOres.add(ModPlacedFeatures.COBALT_ORE_PLACED_FEATURE);
-
-    }
 }

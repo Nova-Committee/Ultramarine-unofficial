@@ -1,4 +1,5 @@
 {
+  "replace": false,
   "values": [
     "ultramarine:yellow_carved_pattern",
     "ultramarine:circular_yellow_carved_pattern",
@@ -41,11 +42,14 @@
     "ultramarine:horizontal_old_landscape_painting",
     "ultramarine:horizontal_calligraphy",
     "ultramarine:horizontal_landscape_painting",
-    "ultramarine:yellow_long_hanging_painting",
+    "ultramarine:long_yellow_hanging_painting",
     "ultramarine:damaged_landscape_painting",
     "ultramarine:portrait",
     "ultramarine:hanging_painting_fan",
     "ultramarine:sincere_calligraphy",
+    "ultramarine:couplet",
+    "ultramarine:couplet_top",
+    "ultramarine:fu_mark",
     "ultramarine:yellow_cushion",
     "ultramarine:paper_strip_seal",
     "ultramarine:large_blue_curtain",

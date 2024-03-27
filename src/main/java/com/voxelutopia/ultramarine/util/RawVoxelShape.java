@@ -1,9 +1,9 @@
 package com.voxelutopia.ultramarine.util;
 
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.joml.Vector3f;
 
 public class RawVoxelShape {
 
@@ -18,8 +18,8 @@ public class RawVoxelShape {
     public RawVoxelShape rotateY(float degrees){
         minP.add(-8f, -8f, -8f);
         maxP.add(-8f, -8f, -8f);
-        minP.transform(Vector3f.YP.rotationDegrees(degrees));
-        maxP.transform(Vector3f.YP.rotationDegrees(degrees));
+        minP.rotate(Axis.YP.rotationDegrees(degrees));
+        maxP.rotate(Axis.YP.rotationDegrees(degrees));
         minP.add(8f, 8f, 8f);
         maxP.add(8f, 8f, 8f);
         return this;

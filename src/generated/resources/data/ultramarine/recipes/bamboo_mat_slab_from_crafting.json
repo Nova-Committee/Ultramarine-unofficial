@@ -1,17 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "pattern": [
+    "BBB"
+  ],
   "key": {
     "B": {
       "item": "ultramarine:bamboo_mat"
     }
   },
-  "pattern": [
-    "BBB"
-  ],
   "result": {
-    "count": 6,
-    "item": "ultramarine:bamboo_mat_slab"
-  },
-  "show_notification": true
+    "item": "ultramarine:bamboo_mat_slab",
+    "count": 6
+  }
 }

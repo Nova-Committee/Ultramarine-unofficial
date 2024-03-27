@@ -4,18 +4,19 @@ import com.google.gson.JsonObject;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import javax.annotation.Nullable;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class WoodworkingRecipe extends SingleItemRecipe {
 
@@ -36,7 +37,7 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     }
 
     @Override
-    public ItemStack assemble(Container pContainer) {
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return result.copy();
     }
 
@@ -51,22 +52,22 @@ public class WoodworkingRecipe extends SingleItemRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess) {
         return result.copy();
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.WOODWORKING.get();
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.WOODWORKING_SERIALIZER.get();
     }
 
@@ -78,7 +79,8 @@ public class WoodworkingRecipe extends SingleItemRecipe {
                 new ResourceLocation(Ultramarine.MOD_ID,"woodworking");
         protected Serializer() {}
 
-        public WoodworkingRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
+        @Override
+        public @NotNull WoodworkingRecipe fromJson(@NotNull ResourceLocation pRecipeId, @NotNull JsonObject pJson) {
             String s = GsonHelper.getAsString(pJson, "group", "");
             Ingredient ingredient;
             if (GsonHelper.isArrayNode(pJson, "ingredient")) {
@@ -93,7 +95,8 @@ public class WoodworkingRecipe extends SingleItemRecipe {
             return new WoodworkingRecipe(pRecipeId, s, ingredient, itemstack);
         }
 
-        public WoodworkingRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        @Override
+        public WoodworkingRecipe fromNetwork(@NotNull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             String s = pBuffer.readUtf();
             Ingredient ingredient = Ingredient.fromNetwork(pBuffer);
             ItemStack itemstack = pBuffer.readItem();
@@ -104,27 +107,6 @@ public class WoodworkingRecipe extends SingleItemRecipe {
             pBuffer.writeUtf(pRecipe.group);
             pRecipe.ingredient.toNetwork(pBuffer);
             pBuffer.writeItem(pRecipe.result);
-        }
-
-        @Override
-        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-            return INSTANCE;
-        }
-
-        @Nullable
-        @Override
-        public ResourceLocation getRegistryName() {
-            return ID;
-        }
-
-        @Override
-        public Class<RecipeSerializer<?>> getRegistryType() {
-            return Serializer.castClass(RecipeSerializer.class);
-        }
-
-        @SuppressWarnings("unchecked")
-        private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
         }
 
     }

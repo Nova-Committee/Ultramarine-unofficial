@@ -1,7 +1,10 @@
 package com.voxelutopia.ultramarine.data.registry;
 
 import com.voxelutopia.ultramarine.Ultramarine;
-import com.voxelutopia.ultramarine.world.block.entity.*;
+import com.voxelutopia.ultramarine.world.block.entity.BottleGourdBlockEntity;
+import com.voxelutopia.ultramarine.world.block.entity.BrickKilnBlockEntity;
+import com.voxelutopia.ultramarine.world.block.entity.CenserBlockEntity;
+import com.voxelutopia.ultramarine.world.block.entity.ContainerDecorativeBlockEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,7 +20,7 @@ public class BlockEntityRegistry {
             BlockRegistry.GUNNY_SACK, BlockRegistry.FRUIT_BOX, BlockRegistry.WOODEN_CRATE, BlockRegistry.FOOD_HAMPER,
             BlockRegistry.OAK_CABINET, BlockRegistry.WARPED_CABINET, BlockRegistry.EBONY_CABINET);
     static Set<RegistryObject<Block>> CENSERS = Set.of(BlockRegistry.BRONZE_CENSER, BlockRegistry.ROYAL_CENSER);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Ultramarine.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Ultramarine.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<ContainerDecorativeBlockEntity>>
             CONTAINER_DECORATIVE_BLOCK = BLOCK_ENTITIES.register(

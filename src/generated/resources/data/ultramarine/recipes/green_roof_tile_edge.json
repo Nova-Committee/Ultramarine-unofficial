@@ -1,17 +1,15 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
+  "pattern": [
+    "T  ",
+    "TTT"
+  ],
   "key": {
     "T": {
       "item": "ultramarine:green_roof_tile"
     }
   },
-  "pattern": [
-    "T  ",
-    "TTT"
-  ],
   "result": {
     "item": "ultramarine:green_roof_tile_edge"
-  },
-  "show_notification": true
+  }
 }

@@ -3,7 +3,6 @@ package com.voxelutopia.ultramarine.client.integration.jei;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
@@ -19,8 +18,9 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -80,38 +80,33 @@ public class CompositeSmeltingRecipeCategory implements IRecipeCategory<Composit
         return icon;
     }
 
-    @Override
-    public void draw(CompositeSmeltingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack poseStack, double mouseX, double mouseY) {
-        animatedFlame.draw(poseStack, 11, 20);
 
-        IDrawableAnimated arrow = getArrow(recipe);
-        arrow.draw(poseStack, 34, 18);
-
-        drawExperience(recipe, poseStack, 0);
-        drawCookTime(recipe, poseStack, 45);
-    }
-
-    protected void drawExperience(CompositeSmeltingRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawExperience(CompositeSmeltingRecipe recipe, GuiGraphics poseStack, int y) {
         float experience = recipe.getExp();
         if (experience > 0) {
-            TranslatableComponent experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
+            MutableComponent experienceString = Component.translatable("gui.jei.category.smelting.experience", experience);
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(experienceString);
-            fontRenderer.draw(poseStack, experienceString, background.getWidth() - stringWidth, y, 0xFF808080);
+            poseStack.drawString(fontRenderer, experienceString, background.getWidth() - stringWidth, y, 0xFF808080);
         }
     }
 
-    protected void drawCookTime(CompositeSmeltingRecipe recipe, PoseStack poseStack, int y) {
+    protected void drawCookTime(CompositeSmeltingRecipe recipe, GuiGraphics poseStack, int y) {
         int cookTime = recipe.getCookingTime();
         if (cookTime > 0) {
             int cookTimeSeconds = cookTime / 20;
-            TranslatableComponent timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
+            MutableComponent timeString = Component.translatable("gui.jei.category.smelting.time.seconds", cookTimeSeconds);
             Minecraft minecraft = Minecraft.getInstance();
             Font fontRenderer = minecraft.font;
             int stringWidth = fontRenderer.width(timeString);
-            fontRenderer.draw(poseStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
+            poseStack.drawString(fontRenderer, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
         }
+    }
+
+    @Override
+    public RecipeType<CompositeSmeltingRecipe> getRecipeType() {
+        return COMPOSITE_SMELTING_RECIPE_TYPE;
     }
 
     @Override
@@ -127,19 +122,21 @@ public class CompositeSmeltingRecipeCategory implements IRecipeCategory<Composit
         builder.addSlot(INPUT, 21, 1)
                 .addIngredients(recipe.getSecondaryIngredient());
 
-        builder.addSlot(OUTPUT, 71, 19)
-                .addItemStack(recipe.getResultItem());
+        if (Minecraft.getInstance().level != null) {
+            builder.addSlot(OUTPUT, 71, 19)
+                    .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        }
     }
 
-    @SuppressWarnings("removal")
     @Override
-    public ResourceLocation getUid() {
-        return UID;
+    public void draw(CompositeSmeltingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        animatedFlame.draw(guiGraphics, 11, 20);
+
+        IDrawableAnimated arrow = getArrow(recipe);
+        arrow.draw(guiGraphics, 34, 18);
+
+        drawExperience(recipe, guiGraphics, 0);
+        drawCookTime(recipe, guiGraphics, 45);
     }
 
-    @SuppressWarnings("removal")
-    @Override
-    public Class<? extends CompositeSmeltingRecipe> getRecipeClass() {
-        return CompositeSmeltingRecipe.class;
-    }
 }

@@ -1,6 +1,5 @@
 package com.voxelutopia.ultramarine.world.item;
 
-import com.voxelutopia.ultramarine.data.CreativeTabDefinitions;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 

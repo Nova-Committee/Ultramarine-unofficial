@@ -8,6 +8,7 @@ import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import com.voxelutopia.ultramarine.world.block.menu.ChiselTableMenu;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -16,9 +17,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChiselTableRecipe implements Recipe<Container> {
@@ -41,7 +46,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, @NotNull Level pLevel) {
         ItemStack usedMaterial = pContainer.getItem(ChiselTableMenu.SLOT_MATERIAL);
         ItemStack usedTemplate = pContainer.getItem(ChiselTableMenu.SLOT_TEMPLATE);
         List<ItemStack> usedColors = Arrays.asList(ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY);
@@ -53,7 +58,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pContainer) {
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
         return this.result.copy();
     }
 
@@ -63,7 +68,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess) {
         return result.copy();
     }
 
@@ -80,17 +85,17 @@ public class ChiselTableRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ResourceLocation getId() {
+    public @NotNull ResourceLocation getId() {
         return id;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public @NotNull RecipeSerializer<?> getSerializer() {
         return RecipeSerializerRegistry.CHISEL_TABLE_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public @NotNull RecipeType<?> getType() {
         return RecipeTypeRegistry.CHISEL_TABLE.get();
     }
 
@@ -115,7 +120,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
         protected Serializer() {}
 
         @Override
-        public ChiselTableRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
+        public @NotNull ChiselTableRecipe fromJson(@NotNull ResourceLocation pRecipeId, JsonObject pJson) {
             if (!pJson.has("result"))
                 throw new JsonSyntaxException("Missing result, expected to find a string or object");
 
@@ -141,7 +146,7 @@ public class ChiselTableRecipe implements Recipe<Container> {
 
         @Nullable
         @Override
-        public ChiselTableRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        public ChiselTableRecipe fromNetwork(@NotNull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             String group = pBuffer.readUtf();
             Ingredient material = Ingredient.fromNetwork(pBuffer);
             Ingredient template = Ingredient.fromNetwork(pBuffer);
@@ -172,27 +177,6 @@ public class ChiselTableRecipe implements Recipe<Container> {
         private static Ingredient parseIngredient(JsonObject json, String member){
             JsonElement ingredientRaw = GsonHelper.isArrayNode(json, member) ? GsonHelper.getAsJsonArray(json, member) : GsonHelper.getAsJsonObject(json, member);
             return Ingredient.fromJson(ingredientRaw);
-        }
-
-        @Override
-        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-            return INSTANCE;
-        }
-
-        @Nullable
-        @Override
-        public ResourceLocation getRegistryName() {
-            return ID;
-        }
-
-        @Override
-        public Class<RecipeSerializer<?>> getRegistryType() {
-            return ChiselTableRecipe.Serializer.castClass(RecipeSerializer.class);
-        }
-
-        @SuppressWarnings("unchecked")
-        private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
         }
     }
 

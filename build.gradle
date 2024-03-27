@@ -113,6 +113,10 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${neo_version}"
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+
     annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
 }
 

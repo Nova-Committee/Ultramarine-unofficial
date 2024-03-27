@@ -4,6 +4,7 @@ import com.voxelutopia.ultramarine.util.RawVoxelShape;
 import com.voxelutopia.ultramarine.world.block.state.ModBlockStateProperties;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,7 +26,6 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -37,7 +37,7 @@ import java.util.Random;
 
 public class RoofTiles extends ShiftableBlock{
 
-    public static final BlockBehaviour.Properties PROPERTIES = BlockBehaviour.Properties.of(Material.STONE)
+    public static final BlockBehaviour.Properties PROPERTIES = BlockBehaviour.Properties.of()
             .requiresCorrectToolForDrops().strength(1.5F, 4.0F).sound(SoundType.DEEPSLATE_TILES);
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final IntegerProperty SNOW_LAYERS = ModBlockStateProperties.SNOW_LAYERS;
@@ -78,7 +78,7 @@ public class RoofTiles extends ShiftableBlock{
     }
 
     private void tryPushSnow(BlockState pState, Level pLevel, BlockPos pPos) {
-        Random random = pLevel.getRandom();
+        RandomSource random = pLevel.getRandom();
         SlopeAngle forwardAngle = checkForwardSlopeAngle(pLevel, pState, pPos);
         if (forwardAngle == SlopeAngle.HIGHER) {
             handleSnow(pState, pLevel, pPos);

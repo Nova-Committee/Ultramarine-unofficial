@@ -1,9 +1,7 @@
 package com.voxelutopia.ultramarine.client.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.recipe.ChiselTableRecipe;
-import com.voxelutopia.ultramarine.data.recipe.CompositeSmeltingRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -13,8 +11,9 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -57,13 +56,21 @@ public class ChiselTableRecipeCategory implements IRecipeCategory<ChiselTableRec
             builder.addSlot(INPUT, 1 + 18 * i, 28).addIngredients(colors.get(i));
         }
 
-        builder.addSlot(OUTPUT, 105, 10)
-                .addItemStack(recipe.getResultItem());
+        if (Minecraft.getInstance().level != null) {
+            builder.addSlot(OUTPUT, 105, 10)
+                    .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        }
     }
 
     @Override
-    public void draw(ChiselTableRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(ChiselTableRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
+    }
+
+
+    @Override
+    public RecipeType<ChiselTableRecipe> getRecipeType() {
+        return CHISEL_TABLE_RECIPE_TYPE;
     }
 
     @Override
@@ -81,15 +88,4 @@ public class ChiselTableRecipeCategory implements IRecipeCategory<ChiselTableRec
         return icon;
     }
 
-    @SuppressWarnings("removal")
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @SuppressWarnings("removal")
-    @Override
-    public Class<? extends ChiselTableRecipe> getRecipeClass() {
-        return ChiselTableRecipe.class;
-    }
 }

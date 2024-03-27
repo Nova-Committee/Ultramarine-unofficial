@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "ultramarine:block/chinese_herbs_bag",
-      "y": 270
-    },
     "facing=north": {
       "model": "ultramarine:block/chinese_herbs_bag",
       "y": 180
@@ -14,6 +10,10 @@
     "facing=west": {
       "model": "ultramarine:block/chinese_herbs_bag",
       "y": 90
+    },
+    "facing=east": {
+      "model": "ultramarine:block/chinese_herbs_bag",
+      "y": 270
     }
   }
 }

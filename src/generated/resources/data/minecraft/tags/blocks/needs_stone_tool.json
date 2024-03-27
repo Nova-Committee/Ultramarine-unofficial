@@ -1,6 +1,9 @@
 {
+  "replace": false,
   "values": [
     "ultramarine:magnesite_ore",
-    "ultramarine:hematite_ore"
+    "ultramarine:deepslate_magnesite_ore",
+    "ultramarine:hematite_ore",
+    "ultramarine:deepslate_hematite_ore"
   ]
 }

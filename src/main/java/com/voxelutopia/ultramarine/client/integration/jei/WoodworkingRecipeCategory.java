@@ -1,6 +1,5 @@
 package com.voxelutopia.ultramarine.client.integration.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.recipe.WoodworkingRecipe;
 import com.voxelutopia.ultramarine.data.registry.BlockRegistry;
@@ -13,10 +12,12 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class WoodworkingRecipeCategory implements IRecipeCategory<WoodworkingRecipe> {
 
@@ -54,33 +55,23 @@ public class WoodworkingRecipeCategory implements IRecipeCategory<WoodworkingRec
         return icon;
     }
 
-    @SuppressWarnings("removal")
-    @Override
-    public ResourceLocation getUid() {
-        return UID;
-    }
-
-    @SuppressWarnings("removal")
-    @Override
-    public Class<? extends WoodworkingRecipe> getRecipeClass() {
-        return WoodworkingRecipe.class;
-    }
-
     @Override
     public RecipeType<WoodworkingRecipe> getRecipeType() {
         return WOODWORKING_RECIPE_TYPE;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, WoodworkingRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, WoodworkingRecipe recipe, @NotNull IFocusGroup focuses) {
         builder.addSlot(RecipeIngredientRole.INPUT, 1, 9)
                 .addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 61,  9)
-                .addItemStack(recipe.getResultItem());
+        if (Minecraft.getInstance().level != null) {
+            builder.addSlot(RecipeIngredientRole.OUTPUT, 61,  9)
+                    .addItemStack(recipe.getResultItem(Minecraft.getInstance().level.registryAccess()));
+        }
     }
 
     @Override
-    public void draw(WoodworkingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-        IRecipeCategory.super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+    public void draw(WoodworkingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, recipeSlotsView, guiGraphics, mouseX, mouseY);
     }
 }

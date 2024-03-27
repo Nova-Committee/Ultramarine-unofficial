@@ -7,6 +7,7 @@ import com.voxelutopia.ultramarine.Ultramarine;
 import com.voxelutopia.ultramarine.data.registry.RecipeSerializerRegistry;
 import com.voxelutopia.ultramarine.data.registry.RecipeTypeRegistry;
 import com.voxelutopia.ultramarine.world.block.entity.BrickKilnBlockEntity;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class CompositeSmeltingRecipe implements Recipe<Container> {
@@ -38,9 +40,14 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
     }
 
     @Override
-    public boolean matches(Container pContainer, Level pLevel) {
+    public boolean matches(Container pContainer, @NotNull Level pLevel) {
         return this.primaryIngredient.test(pContainer.getItem(BrickKilnBlockEntity.SLOT_INPUT_PRIMARY)) &&
                 this.secondaryIngredient.test(pContainer.getItem(BrickKilnBlockEntity.SLOT_INPUT_SECONDARY));
+    }
+
+    @Override
+    public @NotNull ItemStack assemble(@NotNull Container pContainer, @NotNull RegistryAccess pRegistryAccess) {
+        return this.result.copy();
     }
 
     public boolean partialMatch(Container pContainer, Level pLevel) {
@@ -48,13 +55,13 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
     }
 
     @Override
-    public ItemStack assemble(Container pContainer) {
-        return this.result.copy();
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return true;
     }
 
     @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
+    public @NotNull ItemStack getResultItem(@NotNull RegistryAccess pRegistryAccess) {
+        return result.copy();
     }
 
     public Ingredient getPrimaryIngredient() {
@@ -63,11 +70,6 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
 
     public Ingredient getSecondaryIngredient() {
         return secondaryIngredient;
-    }
-
-    @Override
-    public ItemStack getResultItem() {
-        return result.copy();
     }
 
     @Override
@@ -149,27 +151,6 @@ public class CompositeSmeltingRecipe implements Recipe<Container> {
         private static Ingredient parseIngredient(JsonObject json, String member){
             JsonElement ingredientRaw = GsonHelper.isArrayNode(json, member) ? GsonHelper.getAsJsonArray(json, member) : GsonHelper.getAsJsonObject(json, member);
             return Ingredient.fromJson(ingredientRaw);
-        }
-
-        @Override
-        public RecipeSerializer<?> setRegistryName(ResourceLocation name) {
-            return INSTANCE;
-        }
-
-        @Nullable
-        @Override
-        public ResourceLocation getRegistryName() {
-            return ID;
-        }
-
-        @Override
-        public Class<RecipeSerializer<?>> getRegistryType() {
-            return Serializer.castClass(RecipeSerializer.class);
-        }
-
-        @SuppressWarnings("unchecked")
-        private static <G> Class<G> castClass(Class<?> cls) {
-            return (Class<G>)cls;
         }
     }
 

@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "ultramarine:block/wooden_poles",
-      "y": 360
-    },
     "facing=north": {
       "model": "ultramarine:block/wooden_poles",
       "y": 270
@@ -15,6 +11,10 @@
     "facing=west": {
       "model": "ultramarine:block/wooden_poles",
       "y": 180
+    },
+    "facing=east": {
+      "model": "ultramarine:block/wooden_poles",
+      "y": 360
     }
   }
 }

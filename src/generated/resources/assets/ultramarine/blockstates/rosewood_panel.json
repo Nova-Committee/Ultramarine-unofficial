@@ -4,47 +4,47 @@
       "model": "ultramarine:block/rosewood_panel",
       "x": -90
     },
-    "facing=down,waterlogged=true": {
+    "facing=up,waterlogged=false": {
       "model": "ultramarine:block/rosewood_panel",
-      "x": -90
-    },
-    "facing=east,waterlogged=false": {
-      "model": "ultramarine:block/rosewood_panel",
-      "y": 270
-    },
-    "facing=east,waterlogged=true": {
-      "model": "ultramarine:block/rosewood_panel",
-      "y": 270
+      "x": 90
     },
     "facing=north,waterlogged=false": {
-      "model": "ultramarine:block/rosewood_panel",
-      "y": 180
-    },
-    "facing=north,waterlogged=true": {
       "model": "ultramarine:block/rosewood_panel",
       "y": 180
     },
     "facing=south,waterlogged=false": {
       "model": "ultramarine:block/rosewood_panel"
     },
-    "facing=south,waterlogged=true": {
-      "model": "ultramarine:block/rosewood_panel"
-    },
-    "facing=up,waterlogged=false": {
+    "facing=west,waterlogged=false": {
       "model": "ultramarine:block/rosewood_panel",
-      "x": 90
+      "y": 90
+    },
+    "facing=east,waterlogged=false": {
+      "model": "ultramarine:block/rosewood_panel",
+      "y": 270
+    },
+    "facing=down,waterlogged=true": {
+      "model": "ultramarine:block/rosewood_panel",
+      "x": -90
     },
     "facing=up,waterlogged=true": {
       "model": "ultramarine:block/rosewood_panel",
       "x": 90
     },
-    "facing=west,waterlogged=false": {
+    "facing=north,waterlogged=true": {
       "model": "ultramarine:block/rosewood_panel",
-      "y": 90
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "ultramarine:block/rosewood_panel"
     },
     "facing=west,waterlogged=true": {
       "model": "ultramarine:block/rosewood_panel",
       "y": 90
+    },
+    "facing=east,waterlogged=true": {
+      "model": "ultramarine:block/rosewood_panel",
+      "y": 270
     }
   }
 }

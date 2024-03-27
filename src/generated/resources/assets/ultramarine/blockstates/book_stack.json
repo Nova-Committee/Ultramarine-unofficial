@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "ultramarine:block/book_stack",
-      "y": 270
-    },
     "facing=north": {
       "model": "ultramarine:block/book_stack",
       "y": 180
@@ -14,6 +10,10 @@
     "facing=west": {
       "model": "ultramarine:block/book_stack",
       "y": 90
+    },
+    "facing=east": {
+      "model": "ultramarine:block/book_stack",
+      "y": 270
     }
   }
 }

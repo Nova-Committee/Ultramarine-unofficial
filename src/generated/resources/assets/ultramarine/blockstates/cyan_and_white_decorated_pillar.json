@@ -4,10 +4,8 @@
       "model": "ultramarine:block/cyan_and_white_decorated_pillar",
       "x": 180
     },
-    "facing=east": {
-      "model": "ultramarine:block/cyan_and_white_decorated_pillar",
-      "x": 90,
-      "y": 90
+    "facing=up": {
+      "model": "ultramarine:block/cyan_and_white_decorated_pillar"
     },
     "facing=north": {
       "model": "ultramarine:block/cyan_and_white_decorated_pillar",
@@ -18,13 +16,15 @@
       "x": 90,
       "y": 180
     },
-    "facing=up": {
-      "model": "ultramarine:block/cyan_and_white_decorated_pillar"
-    },
     "facing=west": {
       "model": "ultramarine:block/cyan_and_white_decorated_pillar",
       "x": 90,
       "y": 270
+    },
+    "facing=east": {
+      "model": "ultramarine:block/cyan_and_white_decorated_pillar",
+      "x": 90,
+      "y": 90
     }
   }
 }

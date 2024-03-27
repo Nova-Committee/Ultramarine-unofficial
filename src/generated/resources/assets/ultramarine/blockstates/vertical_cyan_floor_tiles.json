@@ -1,9 +1,5 @@
 {
   "variants": {
-    "facing=east": {
-      "model": "ultramarine:block/vertical_cyan_floor_tiles",
-      "y": 90
-    },
     "facing=north": {
       "model": "ultramarine:block/vertical_cyan_floor_tiles"
     },
@@ -14,6 +10,10 @@
     "facing=west": {
       "model": "ultramarine:block/vertical_cyan_floor_tiles",
       "y": 270
+    },
+    "facing=east": {
+      "model": "ultramarine:block/vertical_cyan_floor_tiles",
+      "y": 90
     }
   }
 }
