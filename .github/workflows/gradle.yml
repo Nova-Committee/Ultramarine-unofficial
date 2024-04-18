@@ -9,9 +9,9 @@ name: build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "forge/*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "forge/*" ]
 
 permissions:
   contents: read
