@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ultramarine:yellow_main_roof_ridge_stairs_from_crafting"
+    ]
+  },
+  "criteria": {
+    "has_yellow_main_roof_ridge_connection": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ultramarine:yellow_main_roof_ridge_connection"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ultramarine:yellow_main_roof_ridge_stairs_from_crafting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_yellow_main_roof_ridge_connection",
+      "has_the_recipe"
+    ]
+  ]
+}
