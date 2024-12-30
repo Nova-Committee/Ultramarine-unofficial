@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "ultramarine:dark_cyan_floor_tile"
+    },
+    "D": {
+      "tag": "forge:dyes/blue"
+    }
+  },
+  "result": {
+    "item": "ultramarine:blue_and_black_tile",
+    "count": 8
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ultramarine:ebony_cabinet"
+    ]
+  },
+  "criteria": {
+    "has_polished_warped_plank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ultramarine:polished_warped_plank"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ultramarine:ebony_cabinet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_warped_plank",
+      "has_the_recipe"
+    ]
+  ]
+}

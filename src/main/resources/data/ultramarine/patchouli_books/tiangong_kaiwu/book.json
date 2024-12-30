@@ -1,0 +1,10 @@
+{
+    "name": "guide.patchouli.tiangong_kaiwu.title",
+    "landing_text": "guide.patchouli.tiangong_kaiwu.landing_text",
+    "creative_tab": "ultramarine.tools",
+    "model": "ultramarine:blue_book",
+    "use_resource_pack": true,
+    "show_progress": false,
+    "i18n": true,
+    "version": 5
+}

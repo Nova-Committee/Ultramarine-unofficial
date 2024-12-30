@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ultramarine:oak_cabinet"
+    ]
+  },
+  "criteria": {
+    "has_polished_oak_plank": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ultramarine:polished_oak_plank"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ultramarine:oak_cabinet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_oak_plank",
+      "has_the_recipe"
+    ]
+  ]
+}

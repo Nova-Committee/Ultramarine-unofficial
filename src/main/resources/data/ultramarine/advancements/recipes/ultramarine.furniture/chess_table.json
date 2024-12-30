@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "ultramarine:chess_table"
+    ]
+  },
+  "criteria": {
+    "has_chessboard": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "ultramarine:chessboard"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "ultramarine:chess_table"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chessboard",
+      "has_the_recipe"
+    ]
+  ]
+}
